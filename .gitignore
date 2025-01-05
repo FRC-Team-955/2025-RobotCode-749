@@ -104,11 +104,11 @@ Temporary Items
 .apdisk
 
 ### VisualStudioCode ###
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+../.vscode/*
+!../.vscode/settings.json
+!../.vscode/tasks.json
+!../.vscode/launch.json
+!../.vscode/extensions.json
 
 ### Windows ###
 # Windows thumbnail cache files
@@ -136,7 +136,7 @@ $RECYCLE.BIN/
 *.lnk
 
 ### Gradle ###
-.gradle
+../.gradle
 /build/
 
 # Ignore Gradle GUI config
@@ -156,7 +156,7 @@ gradle-app.setting
 .classpath
 .project
 .settings/
-bin/
+../bin/
 
 # IntelliJ
 *.iml
