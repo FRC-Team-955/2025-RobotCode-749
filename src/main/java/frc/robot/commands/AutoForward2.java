@@ -16,11 +16,12 @@ public class AutoForward2 extends Command {
     }
     @Override
     public void initialize() {
+        driveSubsystem.resetEncoder();
         System.out.println("started");
     }
     @Override
     public void execute() {
-        driveSubsystem.driveArcade(driveSubsystem, () -> 0.25, () -> 0.0);
+        driveSubsystem.driveArcade(driveSubsystem, () -> 0.5, () -> 0.0);
     }
     @Override
     public void end(boolean interrupted) {
