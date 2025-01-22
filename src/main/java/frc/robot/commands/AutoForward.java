@@ -1,4 +1,4 @@
-package frc.robot.commands;
+/*package frc.robot.commands;
 
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -23,7 +23,7 @@ public class AutoForward extends Command {
     }
     @Override
     public void execute() {
-        driveSubsystem.driveArcade(driveSubsystem, () -> 0.25, () -> 0.0);
+        driveSubsystem.driveArcade(driveSubsystem, () -> 0.5, () -> 0.0);
     }
     @Override
     public void end(boolean interrupted) {
@@ -37,4 +37,4 @@ public class AutoForward extends Command {
             else
                 return false;
         }
-    }
+    }*/

@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.RollerConstants;
-import frc.robot.commands.AutoForward;
+import frc.robot.commands.AutoForward2;
 import frc.robot.commands.Autos;
 import frc.robot.subsystems.CANDriveSubsystem;
 import frc.robot.subsystems.CANRollerSubsystem;
@@ -49,7 +49,7 @@ public class RobotContainer {
     // Set the options to show up in the Dashboard for selecting auto modes. If you
     // add additional auto modes you can add additional lines here with
     // autoChooser.addOption
-    autoChooser.setDefaultOption("Autonomus", new AutoForward(driveSubsystem));
+    autoChooser.setDefaultOption("Autonomus", new AutoForward2(driveSubsystem, Constants.DriveConstants.distance));
     autoChooser.addOption("Autonomous", Autos.exampleAuto(driveSubsystem));
   }
 

@@ -1,4 +1,4 @@
-/*package frc.robot.commands;
+package frc.robot.commands;
 
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -8,7 +8,6 @@ import frc.robot.subsystems.CANDriveSubsystem;
 // made by justin, command for auto
 public class AutoForward2 extends Command {
     private final CANDriveSubsystem driveSubsystem;
-    private double encoderSetpoint;
     private final double targetDistance;
     public AutoForward2(CANDriveSubsystem driveSubsystem, double targetDistance) {
         this.driveSubsystem = driveSubsystem;
@@ -17,7 +16,6 @@ public class AutoForward2 extends Command {
     }
     @Override
     public void initialize() {
-        //encoderSetpoint =
         System.out.println("started");
     }
     @Override
@@ -31,9 +29,6 @@ public class AutoForward2 extends Command {
     }
     @Override
     public boolean isFinished() {
-        if //(  > encoderSetpoint)
-            return true;
-        else
-            return false;
+        return driveSubsystem.currentDistance() >= targetDistance;
     }
-}*/
+}

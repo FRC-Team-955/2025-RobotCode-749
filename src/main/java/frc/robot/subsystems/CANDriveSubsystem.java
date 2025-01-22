@@ -6,13 +6,15 @@ package frc.robot.subsystems;
 
 import java.util.function.DoubleSupplier;
 
-import com.revrobotics.RelativeEncoder;
+import com.revrobotics.sim.SparkRelativeEncoderSim;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
+
+import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -27,6 +29,8 @@ public class CANDriveSubsystem extends SubsystemBase {
   private final SparkMax leftFollower;
   private final SparkMax rightLeader;
   private final SparkMax rightFollower;
+  private final RelativeEncoder leftEncoder;
+  private final RelativeEncoder rightEncoder;
 
   private final DifferentialDrive drive;
 
@@ -36,6 +40,9 @@ public class CANDriveSubsystem extends SubsystemBase {
     leftFollower = new SparkMax(DriveConstants.LEFT_FOLLOWER_ID, MotorType.kBrushless);
     rightLeader = new SparkMax(DriveConstants.RIGHT_LEADER_ID, MotorType.kBrushless);
     rightFollower = new SparkMax(DriveConstants.RIGHT_FOLLOWER_ID, MotorType.kBrushless);
+    leftEncoder = leftLeader.getEncoder();
+    rightEncoder = rightLeader.getEncoder();
+
 
 
     // set up differential drive class
@@ -58,6 +65,8 @@ public class CANDriveSubsystem extends SubsystemBase {
     config.voltageCompensation(12);
     config.smartCurrentLimit(DriveConstants.DRIVE_MOTOR_CURRENT_LIMIT);
 
+
+
     // Set configuration to follow leader and then apply it to corresponding
     // follower. Resetting in case a new controller is swapped
     // in and persisting in case of a controller reset due to breaker trip
@@ -73,21 +82,19 @@ public class CANDriveSubsystem extends SubsystemBase {
     // so that postive values drive both sides forward
     config.inverted(true);
     leftLeader.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
   }
 
 
   @Override
   public void periodic() {
-    System.out.println(encoderRotations());
+
   }
 
-  public double encoderRotations() {
-    return leftLeader.getEncoder().getPosition() + -rightLeader.getEncoder().getPosition() / DriveConstants.gearRatio;
+  public double currentDistance() {
+    return (leftEncoder.getPosition() + rightEncoder.getPosition()) / 2.0 * DriveConstants.distancePerPulse;
   }
 
-  /*public double getEncoder() {
-return leftLeader.getEncoder().getPosition() + rightLeader.getEncoder().getPosition() / 2.0;
-  }*/
 
   // Command to drive the robot with joystick inputs
   public Command driveArcade(
