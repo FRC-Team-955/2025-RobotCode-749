@@ -29,6 +29,6 @@ public class AutoForward2 extends Command {
     }
     @Override
     public boolean isFinished() {
-        return driveSubsystem.currentDistance() >= targetDistance;
+        return -driveSubsystem.currentDistance() <= -targetDistance;
     }
 }
