@@ -21,15 +21,18 @@ public class AutoForward2 extends Command {
     }
     @Override
     public void execute() {
-        driveSubsystem.driveArcade(driveSubsystem, () -> 0.5, () -> 0.0);
+        driveSubsystem.setSpeed(0.5);
+        //driveSubsystem.driveArcade(driveSubsystem, () -> 0.75, () -> 0.0);
     }
+
     @Override
     public void end(boolean interrupted) {
-        driveSubsystem.driveArcade(driveSubsystem, () -> 0.0, () -> 0.0 );
+        driveSubsystem.setSpeed(0.0);
+        //driveSubsystem.driveArcade(driveSubsystem, () -> 0.0, () -> 0.0);
         System.out.println("ended");
     }
     @Override
     public boolean isFinished() {
-        return -driveSubsystem.currentDistance() <= -targetDistance;
+        return driveSubsystem.currentDistance() <= targetDistance;
     }
 }

@@ -98,6 +98,10 @@ public class CANDriveSubsystem extends SubsystemBase {
   public double currentDistance() {
     return (leftEncoder.getPosition() + rightEncoder.getPosition()) / 2.0 * (DriveConstants.distancePerPulse);
   }
+  public void setSpeed(double speed) {
+    leftLeader.set(speed);
+    rightLeader.set(speed);
+  }
 
 
   // Command to drive the robot with joystick inputs
