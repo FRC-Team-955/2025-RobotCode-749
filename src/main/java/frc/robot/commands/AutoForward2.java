@@ -11,7 +11,7 @@ public class AutoForward2 extends Command {
     private final double targetDistance;
     public AutoForward2(CANDriveSubsystem driveSubsystem, double targetDistance) {
         this.driveSubsystem = driveSubsystem;
-        this.targetDistance = targetDistance;
+        this.targetDistance = driveSubsystem.currentDistance() + targetDistance;
         addRequirements(driveSubsystem);
     }
     @Override
@@ -33,6 +33,6 @@ public class AutoForward2 extends Command {
     }
     @Override
     public boolean isFinished() {
-        return driveSubsystem.currentDistance() <= targetDistance;
+        return driveSubsystem.currentDistance() >= targetDistance;
     }
 }
