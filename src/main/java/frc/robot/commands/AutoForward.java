@@ -1,44 +1,41 @@
 package frc.robot.commands;
 
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
 import frc.robot.subsystems.CANDriveSubsystem;
 
-// made by justin, command for auto
-public class AutoForward2 extends Command {
+// Originally own by Justin edited by Mark, command for new auto
+public class AutoForward extends Command {
     private final CANDriveSubsystem driveSubsystem;
-    private final double targetDistance;
-    public AutoForward2(CANDriveSubsystem driveSubsystem, double targetDistance) {
+    private final double distance;
+    private double encoderSetpoint;
+
+    public AutoForward(CANDriveSubsystem driveSubsystem, double distance) {
         this.driveSubsystem = driveSubsystem;
-        //this.targetDistance = targetDistance;
-        this.targetDistance = driveSubsystem.currentDistance() + targetDistance;
+        this.distance = distance;
         addRequirements(driveSubsystem);
     }
+
     @Override
     public void initialize() {
-
+        encoderSetpoint = driveSubsystem.currentDistance() + distance;
         System.out.println("started");
     }
     @Override
     public void execute() {
         driveSubsystem.setSpeed(0.5, 0.5);
-        //driveSubsystem.driveArcade(driveSubsystem, () -> 0.75, () -> 0.0);
     }
 
     @Override
     public void end(boolean interrupted) {
         driveSubsystem.setSpeed(0.0, 0.0);
-        //driveSubsystem.driveArcade(driveSubsystem, () -> 0.0, () -> 0.0);
         System.out.println("ended");
     }
     @Override
     public boolean isFinished() {
-        if (driveSubsystem.currentDistance() > targetDistance) {
+        if (driveSubsystem.currentDistance() > encoderSetpoint) {
             return true;
         }
         else
             return false;
         }
-
     }
