@@ -100,9 +100,11 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return new SequentialCommandGroup(autoChooser.getSelected(),
-            new ParallelCommandGroup( //
-                    new AutoRoller(rollerSubsystem)));
+     new SequentialCommandGroup
+             (autoChooser.getSelected(),//
 
+                     new ParallelCommandGroup(//
+                        new AutoRoller(rollerSubsystem)));
+    return null;
   }
 }
