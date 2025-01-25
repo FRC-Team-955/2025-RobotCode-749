@@ -23,7 +23,7 @@ public final class Constants {
     public static final int RIGHT_LEADER_ID = 3;
     public static final int RIGHT_FOLLOWER_ID = 4;
     public static final double gearRatio = 8.46;
-    public static final int distance = -60;
+    public static final int distance = 60;
     public static final double wheelDiameter = 6.0;
     public static final double encoderCPR = 42.0;
     public static final double distancePerPulse = (Math.PI * wheelDiameter) / (encoderCPR * gearRatio);
