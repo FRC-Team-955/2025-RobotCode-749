@@ -34,9 +34,10 @@ public class AutoForward2 extends Command {
     @Override
     public boolean isFinished() {
         if (-driveSubsystem.currentDistance() <= targetDistance) {
-            return false;
+            return true;
         }
-        else return true;
+        else
+            return false;
         }
 
     }
