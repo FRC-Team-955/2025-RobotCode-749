@@ -33,11 +33,11 @@ public class RobotContainer {
 
   // The driver's controller
   private final CommandXboxController driverController = new CommandXboxController(
-      OperatorConstants.DRIVER_CONTROLLER_PORT);
+          OperatorConstants.DRIVER_CONTROLLER_PORT);
 
   // The operator's controller
   private final CommandXboxController operatorController = new CommandXboxController(
-      OperatorConstants.OPERATOR_CONTROLLER_PORT);
+          OperatorConstants.OPERATOR_CONTROLLER_PORT);
 
   // The autonomous chooser
   private final SendableChooser<Command> autoChooser = new SendableChooser<>();
@@ -73,7 +73,7 @@ public class RobotContainer {
     // Set the A button to run the "runRoller" command from the factory with a fixed
     // value ejecting the gamepiece while the button is held
     operatorController.a()
-        .whileTrue(rollerSubsystem.runRoller(rollerSubsystem, () -> RollerConstants.ROLLER_EJECT_VALUE, () -> 0));
+            .whileTrue(rollerSubsystem.runRoller(rollerSubsystem, () -> RollerConstants.ROLLER_EJECT_VALUE, () -> 0));
 
     // Set the default command for the drive subsystem to the command provided by
     // factory with the values provided by the joystick axes on the driver
@@ -81,16 +81,16 @@ public class RobotContainer {
     // stick away from you (a negative value) drives the robot forwards (a positive
     // value)
     driveSubsystem.setDefaultCommand(
-        driveSubsystem.driveArcade(
-            driveSubsystem, () -> -driverController.getLeftY(), () -> -driverController.getRightX()));
+            driveSubsystem.driveArcade(
+                    driveSubsystem, () -> -driverController.getLeftY(), () -> -driverController.getRightX()));
 
     // Set the default command for the roller subsystem to the command from the
     // factory with the values provided by the triggers on the operator controller
     rollerSubsystem.setDefaultCommand(
-        rollerSubsystem.runRoller(
-            rollerSubsystem,
-            () -> operatorController.getRightTriggerAxis(),
-            () -> operatorController.getLeftTriggerAxis()));
+            rollerSubsystem.runRoller(
+                    rollerSubsystem,
+                    () -> operatorController.getRightTriggerAxis(),
+                    () -> operatorController.getLeftTriggerAxis()));
   }
 
   /**
@@ -100,11 +100,10 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-     new SequentialCommandGroup
-             (autoChooser.getSelected(),//
+    return new SequentialCommandGroup
+            (autoChooser.getSelected(),
 
-                     new ParallelCommandGroup(//
-                        new AutoRoller(rollerSubsystem)));
-    return null;
+                    new ParallelCommandGroup(
+                            new AutoRoller(rollerSubsystem)));
   }
 }

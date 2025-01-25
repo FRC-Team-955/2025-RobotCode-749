@@ -22,7 +22,7 @@ public final class Constants {
     public static final int LEFT_FOLLOWER_ID = 2;
     public static final int RIGHT_LEADER_ID = 3;
     public static final int RIGHT_FOLLOWER_ID = 4;
-    public static final double gearRatio = 8.46; // i might i have to put 1 / 8.46 by justin
+    public static final double gearRatio = 1 / 8.46;
     public static final int distance = 60;
     public static final double wheelDiameter = 6.0;
     public static final double encoderCPR = 42.0;
