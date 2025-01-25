@@ -17,12 +17,13 @@ public class AutoForward2 extends Command {
     }
     @Override
     public void initialize() {
+        driveSubsystem.resetEncoder();
 
         System.out.println("started");
     }
     @Override
     public void execute() {
-        driveSubsystem.setSpeed(0.5, 0.5);
+        driveSubsystem.setSpeed(0.25, 0.25);
         //driveSubsystem.driveArcade(driveSubsystem, () -> 0.75, () -> 0.0);
     }
 
