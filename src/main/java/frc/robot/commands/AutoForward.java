@@ -15,7 +15,7 @@ public class AutoForward extends Command {
 
     public AutoForward(CANDriveSubsystem driveSubsystem, double distance) {
         this.driveSubsystem = driveSubsystem;
-        this.distance = driveSubsystem.currentDistance() + distance;
+        this.distance = distance;
         addRequirements(driveSubsystem);
     }
     @Override
