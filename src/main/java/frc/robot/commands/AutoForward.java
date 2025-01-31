@@ -4,7 +4,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.CANDriveSubsystem;
 
-// Originally own by Justin edited by Mark, command for new auto
+// Originally own by Justin edited by Mark, command for new PidAuto
 public class AutoForward extends Command {
     private final CANDriveSubsystem driveSubsystem;
     private final double distance;
