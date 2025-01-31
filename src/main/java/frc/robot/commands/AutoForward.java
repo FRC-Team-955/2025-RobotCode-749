@@ -10,22 +10,22 @@ public class AutoForward extends Command {
 
     public AutoForward(CANDriveSubsystem driveSubsystem, double distance) {
         this.driveSubsystem = driveSubsystem;
-        this.distance = driveSubsystem.currentDistance() + distance;//distance + 5 is = want move 5
+        this.distance = driveSubsystem.currentDistance() + distance;
         addRequirements(driveSubsystem);
     }
-
     @Override
     public void initialize() {
         System.out.println("started");
     }
     @Override
     public void execute() {
-        driveSubsystem.setSpeed(0.2, 0.2);
+        driveSubsystem.setSpeed(0.25, 0.25);
     }
+
 
     @Override
     public void end(boolean interrupted) {
-        driveSubsystem.setSpeed(0, 0);
+        driveSubsystem.setSpeed(0.0, 0.0);
         System.out.println("ended");
     }
     @Override
