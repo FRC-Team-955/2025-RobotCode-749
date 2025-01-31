@@ -11,6 +11,7 @@ public class AutoForward extends Command {
     private double encoderSetpoint;
     PIDController pid = new PIDController(0.002, 0, 0);
     private double speed;
+    private double speed2;
 
     public AutoForward(CANDriveSubsystem driveSubsystem, double distance) {
         this.driveSubsystem = driveSubsystem;
@@ -21,9 +22,9 @@ public class AutoForward extends Command {
     public void initialize() {
         System.out.println("started");
         pid.reset();
+        pid.setTolerance(5, 10);
         encoderSetpoint = driveSubsystem.currentDistance() + distance;
         speed = (pid.calculate(driveSubsystem.currentDistance(), encoderSetpoint));
-        pid.setTolerance(5, 10);
     }
 
     @Override
@@ -34,7 +35,8 @@ public class AutoForward extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        driveSubsystem.setSpeed(speed, speed);
+        speed2 = (pid.calculate(driveSubsystem.currentDistance(), encoderSetpoint));
+        driveSubsystem.setSpeed(speed2, speed2);
         //pid.atSetpoint();
         System.out.println("ended");
     }
