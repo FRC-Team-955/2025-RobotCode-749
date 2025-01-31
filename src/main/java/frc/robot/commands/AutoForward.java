@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.CANDriveSubsystem;
 
@@ -7,6 +8,9 @@ import frc.robot.subsystems.CANDriveSubsystem;
 public class AutoForward extends Command {
     private final CANDriveSubsystem driveSubsystem;
     private final double distance;
+    private double encoderSetpoint;
+    PIDController pid = new PIDController(0.002, 0, 0);
+    private double speed;
 
     public AutoForward(CANDriveSubsystem driveSubsystem, double distance) {
         this.driveSubsystem = driveSubsystem;
@@ -16,24 +20,37 @@ public class AutoForward extends Command {
     @Override
     public void initialize() {
         System.out.println("started");
+        pid.reset();
+        encoderSetpoint = driveSubsystem.currentDistance() + distance;
+        speed = (pid.calculate(driveSubsystem.currentDistance(), encoderSetpoint));
+        pid.setTolerance(5, 10);
     }
+
     @Override
     public void execute() {
-        driveSubsystem.setSpeed(0.25, 0.25);
+        driveSubsystem.setSpeed(speed, speed);
     }
 
 
     @Override
     public void end(boolean interrupted) {
-        driveSubsystem.setSpeed(0.0, 0.0);
+        driveSubsystem.setSpeed(speed, speed);
+        //pid.atSetpoint();
         System.out.println("ended");
     }
+
     @Override
     public boolean isFinished() {
-        if (driveSubsystem.currentDistance() > distance) {
+        if (pid.atSetpoint()) {
             return true;
         }
         else
             return false;
-        }
     }
+        /*if (driveSubsystem.currentDistance() > encoderSetpoint) {
+            return true;
+        }
+        else
+            return false;
+        }*/
+}
