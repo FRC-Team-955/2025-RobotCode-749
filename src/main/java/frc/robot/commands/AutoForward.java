@@ -7,30 +7,33 @@ import frc.robot.subsystems.CANDriveSubsystem;
 public class AutoForward extends Command {
     private final CANDriveSubsystem driveSubsystem;
     private final double distance;
+    private double encoderSetpoint;
 
     public AutoForward(CANDriveSubsystem driveSubsystem, double distance) {
         this.driveSubsystem = driveSubsystem;
-        this.distance = driveSubsystem.currentDistance() + distance;
+        this.distance = distance;
         addRequirements(driveSubsystem);
     }
     @Override
     public void initialize() {
         System.out.println("started");
+        encoderSetpoint = driveSubsystem.currentDistance() + distance;
     }
+
     @Override
     public void execute() {
         driveSubsystem.setSpeed(0.3, 0.3);
     }
-
 
     @Override
     public void end(boolean interrupted) {
         driveSubsystem.setSpeed(0.0, 0.0);
         System.out.println("ended");
     }
+
     @Override
     public boolean isFinished() {
-        if (driveSubsystem.currentDistance() > distance) {
+        if (driveSubsystem.currentDistance() > encoderSetpoint) {
             return true;
         }
         else

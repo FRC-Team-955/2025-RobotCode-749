@@ -103,6 +103,6 @@ public class RobotContainer {
     return new SequentialCommandGroup
             (autoChooser.getSelected(),
                     new ParallelCommandGroup(
-                            new AutoRoller(rollerSubsystem)));
+                            new AutoRoller(rollerSubsystem, RollerConstants.roation)));
   }
 }
