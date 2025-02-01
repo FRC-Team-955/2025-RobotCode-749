@@ -54,8 +54,6 @@ public class AutoForward extends Command {
     }
 
 }
-
-
         /*if (pidController.atSetpoint()) {
             return true;
         }
