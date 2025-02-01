@@ -16,7 +16,7 @@ public class AutoRoller extends Command {
     }
     @Override
     public void execute() {
-        rollerSubsystem.setRollerMotor(0.5);
+        rollerSubsystem.setRollerMotor(0.4);
 
     }
 

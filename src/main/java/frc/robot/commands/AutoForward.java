@@ -19,7 +19,7 @@ public class AutoForward extends Command {
     }
     @Override
     public void execute() {
-        driveSubsystem.setSpeed(0.25, 0.25);
+        driveSubsystem.setSpeed(0.3, 0.3);
     }
 
 
