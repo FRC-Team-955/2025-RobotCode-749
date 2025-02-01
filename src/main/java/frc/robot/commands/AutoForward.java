@@ -9,35 +9,21 @@ public class AutoForward extends Command {
     private final CANDriveSubsystem driveSubsystem;
     private final double targetDistance;
     private double encoderSetpoint;
-    //private final PIDController pidController;
-    //private final double speed;
-    //private final double error;
-    //private final double kP;
-    //private final double outputSpeed;
 
     public AutoForward(CANDriveSubsystem driveSubsystem, double targetDistance) {
         this.driveSubsystem = driveSubsystem;
         this.targetDistance = targetDistance;
-        //this.error = encoderSetpoint - driveSubsystem.currentDistance();
-        //this.pidController = new PIDController(0.0005,0,0);
-        //this.speed = pidController.calculate(driveSubsystem.currentDistance());
-        //this.kP = 0.00005;
-        //this.outputSpeed = kP * error;
         addRequirements(driveSubsystem);
     }
     @Override
     public void initialize() {
-        //pidController.reset();
+        driveSubsystem.encoderReset();
         encoderSetpoint = driveSubsystem.currentDistance() + targetDistance;
-        //pidController.setSetpoint(encoderSetpoint);
         System.out.println("started");
     }
     @Override
     public void execute() {
-        //driveSubsystem.setSpeed(speed, speed);
-        //double speed = pidController.calculate(driveSubsystem.currentDistance());
-        driveSubsystem.setSpeed(0.2,0.2);
-        //driveSubsystem.setSpeed(0.3, 0.3);
+        driveSubsystem.setSpeed(0.25,0.25);
     }
     @Override
     public void end(boolean interrupted) {
@@ -46,7 +32,7 @@ public class AutoForward extends Command {
     }
     @Override
     public boolean isFinished() {
-        if (driveSubsystem.currentDistance() > encoderSetpoint ) {
+        if (driveSubsystem.currentDistance() >= encoderSetpoint ) {
             return true;
         }
         else
@@ -54,12 +40,3 @@ public class AutoForward extends Command {
     }
 
 }
-        /*if (pidController.atSetpoint()) {
-            return true;
-        }
-        else
-            return false;
-        }
-
-    }*/
-
