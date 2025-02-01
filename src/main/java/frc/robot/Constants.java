@@ -30,7 +30,6 @@ public final class Constants {
 
     public static final int DRIVE_MOTOR_CURRENT_LIMIT = 60;
   }
-
   public static final class RollerConstants {
     public static final int ROLLER_MOTOR_ID = 5;
     public static final int ROLLER_MOTOR_CURRENT_LIMIT = 60;
