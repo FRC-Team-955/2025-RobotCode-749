@@ -8,26 +8,33 @@ import frc.robot.subsystems.CANDriveSubsystem;
 public class AutoForward extends Command {
     private final CANDriveSubsystem driveSubsystem;
     private final double targetDistance;
+    private final PIDController pidController;
     private double encoderSetpoint;
+    private double speed;
 
     public AutoForward(CANDriveSubsystem driveSubsystem, double targetDistance) {
         this.driveSubsystem = driveSubsystem;
+        this.pidController = new PIDController(-0.0002, 0, 0);
         this.targetDistance = targetDistance;
         addRequirements(driveSubsystem);
     }
     @Override
     public void initialize() {
-        driveSubsystem.encoderReset();
+        pidController.reset();
+        //driveSubsystem.encoderReset();
         encoderSetpoint = driveSubsystem.currentDistance() + targetDistance;
         System.out.println("started");
     }
     @Override
     public void execute() {
-        driveSubsystem.setSpeed(0.25,0.25);
+        this.speed = pidController.calculate(driveSubsystem.currentDistance(), encoderSetpoint);
+        driveSubsystem.setSpeed(speed, speed);
+        //driveSubsystem.setSpeed(0.25,0.25);
     }
     @Override
     public void end(boolean interrupted) {
-        driveSubsystem.setSpeed(0, 0);
+        driveSubsystem.setSpeed(speed, speed);
+        //driveSubsystem.setSpeed(0, 0);
         System.out.println("ended");
     }
     @Override

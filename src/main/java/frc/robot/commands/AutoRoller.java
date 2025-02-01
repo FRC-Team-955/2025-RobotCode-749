@@ -12,7 +12,6 @@ public class AutoRoller extends Command {
 
     public AutoRoller(CANRollerSubsystem rollerSubsystem) {
         this.rollerSubsystem = rollerSubsystem;
-        //this.timer = timer;
         addRequirements(rollerSubsystem);
     }
     @Override
