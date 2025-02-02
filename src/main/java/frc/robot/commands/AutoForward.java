@@ -15,8 +15,6 @@ public class AutoForward extends Command {
     private double speedLeft;
     private double speedRight;
 
-
-
     public AutoForward(CANDriveSubsystem driveSubsystem, double targetDistance) {
         this.driveSubsystem = driveSubsystem;
         this.pidControllerRight = new PIDController(0.01,0,0);
