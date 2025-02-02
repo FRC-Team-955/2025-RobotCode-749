@@ -18,6 +18,7 @@ import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -93,12 +94,20 @@ public class CANDriveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    System.out.println(currentDistance());
-
+    SmartDashboard.putNumber("leftCurrentDistance", leftCurrentDistance());
+    SmartDashboard.putNumber("rightCurrentDistance", rightCurrentDistance());
   }
+
 
   public double currentDistance() {
     return (-leftEncoder.getPosition() + -rightEncoder.getPosition()) / 2 * DriveConstants.distancePerPulse;
+  }
+  public double rightCurrentDistance()
+  {
+    return -rightEncoder.getPosition() * DriveConstants.distancePerPulse;}
+  public double leftCurrentDistance()
+  {
+    return -leftEncoder.getPosition() * DriveConstants.distancePerPulse;
   }
 
 
