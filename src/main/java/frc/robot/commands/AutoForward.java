@@ -14,6 +14,7 @@ public class AutoForward extends Command {
     private double encoderSetpoint;
     private double speedLeft;
     private double speedRight;
+
     public AutoForward(CANDriveSubsystem driveSubsystem, double targetDistance) {
         this.driveSubsystem = driveSubsystem;
         this.pidControllerRight = new PIDController(0.01,0,0);
@@ -38,12 +39,10 @@ public class AutoForward extends Command {
         SmartDashboard.putNumber("leftPidOutput", speedLeft);
 
         SmartDashboard.putNumber("rightPidOutput", speedRight);
-        //driveSubsystem.setSpeed(0.25,0.25);
     }
     @Override
     public void end(boolean interrupted) {
         driveSubsystem.setSpeed(speedLeft, speedRight);
-        //driveSubsystem.setSpeed(0, 0);
         System.out.println("ended");
     }
     @Override

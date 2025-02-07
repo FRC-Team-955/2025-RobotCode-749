@@ -14,8 +14,10 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.RollerConstants;
 import frc.robot.commands.AutoForward;
 import frc.robot.commands.AutoRoller;
+import frc.robot.commands.Elevator;
 import frc.robot.subsystems.CANDriveSubsystem;
 import frc.robot.subsystems.CANRollerSubsystem;
+import frc.robot.subsystems.ElevatorSubSystems;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -30,6 +32,7 @@ public class RobotContainer {
   // The robot's subsystems
   private final CANDriveSubsystem driveSubsystem = new CANDriveSubsystem();
   private final CANRollerSubsystem rollerSubsystem = new CANRollerSubsystem();
+  private final ElevatorSubSystems elevatorSubSystems = new ElevatorSubSystems();
 
   // The driver's controller
   private final CommandXboxController driverController = new CommandXboxController(
@@ -52,7 +55,7 @@ public class RobotContainer {
     // add additional auto modes you can add additional lines here with
     // autoChooser.addOption
     autoChooser.setDefaultOption("Autonomus", new AutoForward(driveSubsystem, Constants.DriveConstants.distance));
-    //autoChooser.addOption("Autonomous", Autos.exampleAuto(driveSubsystem));
+    //autoChooser.addOption("Autonomous", new Autos.exampleAuto(driveSubsystem));
   }
 
   /**
@@ -74,6 +77,8 @@ public class RobotContainer {
     // value ejecting the gamepiece while the button is held
     operatorController.a()
         .whileTrue(rollerSubsystem.runRoller(rollerSubsystem, () -> RollerConstants.ROLLER_EJECT_VALUE, () -> 0));
+    operatorController.b()
+            .whileTrue(new Elevator(elevatorSubSystems, Constants.ElevatorConstants.targetHeight));
 
     // Set the default command for the drive subsystem to the command provided by
     // factory with the values provided by the joystick axes on the driver
@@ -83,7 +88,9 @@ public class RobotContainer {
     driveSubsystem.setDefaultCommand(
         driveSubsystem.driveArcade(
             driveSubsystem, () -> -driverController.getLeftY(), () -> -driverController.getRightX()));
-
+    elevatorSubSystems.setDefaultCommand(
+            new Elevator(elevatorSubSystems, 0)
+    );
     // Set the default command for the roller subsystem to the command from the
     // factory with the values provided by the triggers on the operator controller
     rollerSubsystem.setDefaultCommand(
@@ -99,10 +106,10 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
+    // An example command will be run in aut9onomous
     return new SequentialCommandGroup(autoChooser.getSelected(),
             new ParallelCommandGroup(
-                    new AutoRoller(rollerSubsystem)));
-
+                        new Elevator(elevatorSubSystems, Constants.ElevatorConstants.targetHeight)));
+                            new AutoRoller(rollerSubsystem);
   }
 }
