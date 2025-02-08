@@ -97,7 +97,7 @@ public class RobotContainer {
             new Elevator(elevatorSubSystems, 0)
     );
     pivotSubSystems.setDefaultCommand(
-            new Pivot(pivotSubSystems, 20)
+            new Pivot(pivotSubSystems, 0)
     );
     // Set the default command for the roller subsystem to the command from the
     // factory with the values provided by the triggers on the operator controller
@@ -117,7 +117,8 @@ public class RobotContainer {
     // An example command will be run in aut9onomous
     return new SequentialCommandGroup(autoChooser.getSelected(),
             new ParallelCommandGroup(
-                        new Elevator(elevatorSubSystems, Constants.ElevatorConstants.targetHeight)));
-                            new AutoRoller(rollerSubsystem);
+                        new Elevator(elevatorSubSystems, Constants.ElevatorConstants.targetHeight),
+                            new Pivot(pivotSubSystems, Constants.PivotConstants.targetPosition),
+                            new AutoRoller(rollerSubsystem)));
   }
 }

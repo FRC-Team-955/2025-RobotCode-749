@@ -21,7 +21,7 @@ public class Pivot extends Command {
     @Override
     public void initialize() {
         pidPivot.reset();
-        pidPivot.setTolerance(10, 10);
+        //pidPivot.setTolerance(10, 10);
         pivotEncoderSetpoint = pivotSubsystem.currentPivotEncoder() + targetPosition;
         SmartDashboard.putNumber("pivotEncoderSetpoint", pivotEncoderSetpoint);
     }

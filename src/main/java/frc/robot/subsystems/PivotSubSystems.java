@@ -33,8 +33,8 @@ public class PivotSubSystems extends SubsystemBase {
         else return false;
     }*/
 
-    public void setSpeed(double leftSpeed) {
-        pivotMotor.set(-leftSpeed);
+    public void setSpeed(double speed) {
+        pivotMotor.set(-speed);
     }
 
     public double currentPivotEncoder() {
