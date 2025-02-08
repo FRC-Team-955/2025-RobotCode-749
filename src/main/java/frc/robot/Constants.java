@@ -32,7 +32,7 @@ public final class Constants {
   }
   public static final class ElevatorConstants {
     public static final int ElEVATOR_MOTOR_ID = 6;
-    public static final double gearRatio = 1/1;
+    public static final double gearRatio = 1/20;
     public static final double targetHeight = 2;
   }
   public static final class RollerConstants {

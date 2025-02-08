@@ -21,8 +21,6 @@ private final DigitalInput bottomLimitSwitch;
 
 private final RelativeEncoder elevatorEncoder;
 
-
-
 public ElevatorSubSystems() {
     topLimitSwitch = new DigitalInput(0);
 
@@ -66,7 +64,7 @@ public ElevatorSubSystems() {
     }
 
     public double currentEleveatorEncoder() {
-        return elevatorEncoder.getPosition();
+        return elevatorEncoder.getPosition() * Constants.ElevatorConstants.gearRatio;
     }
 
         @Override

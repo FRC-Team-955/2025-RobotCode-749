@@ -30,6 +30,7 @@ public class Elevator extends Command {
             this.speedElevator = pidController.calculate(elevatorSubSystems.currentEleveatorEncoder(), encodersetHeight);
             elevatorSubSystems.setMotorSpeed(speedElevator);
             SmartDashboard.putNumber("speedOfElevator", speedElevator);
+            SmartDashboard.putNumber("currentPosition", elevatorSubSystems.currentEleveatorEncoder());
         }
 
         @Override
