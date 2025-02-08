@@ -27,7 +27,6 @@ public class PivotSubSystem  extends SubsystemBase {
             pivot.configure(config, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
         }
 
-
     public void setSpeed(double speed) {
         pivot.set(speed);
     }
