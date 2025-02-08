@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.CANDriveSubsystem;
 
-// made by justin, command for auto
+// made by justin and Mark, command for auto
 public class AutoForward extends Command {
     private final CANDriveSubsystem driveSubsystem;
     private final double targetDistance;

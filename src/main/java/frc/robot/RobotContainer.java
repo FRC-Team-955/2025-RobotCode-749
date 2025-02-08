@@ -15,9 +15,11 @@ import frc.robot.Constants.RollerConstants;
 import frc.robot.commands.AutoForward;
 import frc.robot.commands.AutoRoller;
 import frc.robot.commands.Elevator;
+import frc.robot.commands.Pivot;
 import frc.robot.subsystems.CANDriveSubsystem;
 import frc.robot.subsystems.CANRollerSubsystem;
 import frc.robot.subsystems.ElevatorSubSystems;
+import frc.robot.subsystems.PivotSubSystems;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -33,6 +35,7 @@ public class RobotContainer {
   private final CANDriveSubsystem driveSubsystem = new CANDriveSubsystem();
   private final CANRollerSubsystem rollerSubsystem = new CANRollerSubsystem();
   private final ElevatorSubSystems elevatorSubSystems = new ElevatorSubSystems();
+  private final PivotSubSystems pivotSubSystems = new PivotSubSystems();
 
   // The driver's controller
   private final CommandXboxController driverController = new CommandXboxController(
@@ -77,8 +80,10 @@ public class RobotContainer {
     // value ejecting the gamepiece while the button is held
     operatorController.a()
         .whileTrue(rollerSubsystem.runRoller(rollerSubsystem, () -> RollerConstants.ROLLER_EJECT_VALUE, () -> 0));
-    operatorController.b()
+    operatorController.rightTrigger()
             .whileTrue(new Elevator(elevatorSubSystems, Constants.ElevatorConstants.targetHeight));
+    operatorController.leftTrigger()
+            .whileTrue(new Pivot(pivotSubSystems, Constants.PivotConstants.targetPosition));
 
     // Set the default command for the drive subsystem to the command provided by
     // factory with the values provided by the joystick axes on the driver
@@ -90,6 +95,9 @@ public class RobotContainer {
             driveSubsystem, () -> -driverController.getLeftY(), () -> -driverController.getRightX()));
     elevatorSubSystems.setDefaultCommand(
             new Elevator(elevatorSubSystems, 0)
+    );
+    pivotSubSystems.setDefaultCommand(
+            new Pivot(pivotSubSystems, 20)
     );
     // Set the default command for the roller subsystem to the command from the
     // factory with the values provided by the triggers on the operator controller
