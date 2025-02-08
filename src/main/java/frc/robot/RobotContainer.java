@@ -8,14 +8,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.RollerConstants;
 import frc.robot.commands.AutoForward;
 import frc.robot.commands.AutoRoller;
+import frc.robot.commands.ElevatorPID;
+import frc.robot.commands.Pivot;
 import frc.robot.subsystems.CANDriveSubsystem;
 import frc.robot.subsystems.CANRollerSubsystem;
+import frc.robot.subsystems.ElevatorSubSystems;
+import frc.robot.subsystems.PivotSubSystem;
+
+import java.util.function.BooleanSupplier;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -30,6 +35,8 @@ public class RobotContainer {
   // The robot's subsystems
   private final CANDriveSubsystem driveSubsystem = new CANDriveSubsystem();
   private final CANRollerSubsystem rollerSubsystem = new CANRollerSubsystem();
+  private final ElevatorSubSystems elevatorSubSystems = new ElevatorSubSystems();
+  private final PivotSubSystem pivotSubSystem = new PivotSubSystem();
 
   // The driver's controller
   private final CommandXboxController driverController = new CommandXboxController(
@@ -58,15 +65,15 @@ public class RobotContainer {
   /**
    * Use this method to define your trigger->command mappings. Triggers can be
    * created via the
-   * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with
+   * {@link Trigger#Trigger(BooleanSupplier)} constructor with
    * an arbitrary
    * predicate, or via the named factories in {@link
-   * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for
+   * CommandGenericHID}'s subclasses for
    * {@link
    * CommandXboxController
-   * Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
+   * Xbox}/{@link CommandPS4Controller
    * PS4} controllers or
-   * {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
+   * {@link CommandJoystick Flight
    * joysticks}.
    */
   private void configureBindings() {
@@ -74,6 +81,11 @@ public class RobotContainer {
     // value ejecting the gamepiece while the button is held
     operatorController.a()
         .whileTrue(rollerSubsystem.runRoller(rollerSubsystem, () -> RollerConstants.ROLLER_EJECT_VALUE, () -> 0));
+
+
+    operatorController.leftTrigger().whileTrue(new Pivot(pivotSubSystem, Constants.PivotConstants.encoderSetpoint));
+
+    operatorController.rightTrigger().toggleOnTrue(new ElevatorPID(elevatorSubSystems,Constants.ElevatorConstants.encoderSetpoint));
 
     // Set the default command for the drive subsystem to the command provided by
     // factory with the values provided by the joystick axes on the driver
@@ -84,6 +96,14 @@ public class RobotContainer {
         driveSubsystem.driveArcade(
             driveSubsystem, () -> -driverController.getLeftY(), () -> -driverController.getRightX()));
 
+    elevatorSubSystems.setDefaultCommand(new ElevatorPID(elevatorSubSystems, 0));
+
+
+
+    pivotSubSystem.setDefaultCommand(new Pivot(pivotSubSystem, -0));
+
+
+
     // Set the default command for the roller subsystem to the command from the
     // factory with the values provided by the triggers on the operator controller
     rollerSubsystem.setDefaultCommand(
@@ -92,7 +112,6 @@ public class RobotContainer {
             () -> operatorController.getRightTriggerAxis(),
             () -> operatorController.getLeftTriggerAxis()));
   }
-
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -102,7 +121,9 @@ public class RobotContainer {
     // An example command will be run in autonomous
     return new SequentialCommandGroup(autoChooser.getSelected(),
             new ParallelCommandGroup(
-                    new AutoRoller(rollerSubsystem)));
+                    new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint),
+    new Pivot(pivotSubSystem,Constants.PivotConstants.encoderSetpoint),
+    new AutoRoller(rollerSubsystem)));
 
   }
 }

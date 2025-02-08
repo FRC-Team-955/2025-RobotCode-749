@@ -38,7 +38,6 @@ public class AutoForward extends Command {
         SmartDashboard.putNumber("leftPidOutput", speedLeft);
 
         SmartDashboard.putNumber("rightPidOutput", speedRight);
-        //driveSubsystem.setSpeed(0.25,0.25);
     }
     @Override
     public void end(boolean interrupted) {

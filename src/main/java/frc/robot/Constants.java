@@ -32,6 +32,14 @@ public final class Constants {
   }
   public static final class ElevatorConstants {
     public static final int ElEVATOR_MOTOR_ID = 6;
+    public static final double gearRatio =  1 / 20;
+    public static final double encoderSetpoint = 0.0;
+  }
+  public static final class PivotConstants {
+    public static final int PIVOT_MOTOR_ID = 7;
+    public static final double gearRatio = 0.0;
+    public static final double encoderSetpoint = 0.0;
+
   }
   public static final class RollerConstants {
     public static final int ROLLER_MOTOR_ID = 5;
