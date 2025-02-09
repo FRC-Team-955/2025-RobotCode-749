@@ -13,6 +13,7 @@ import frc.robot.Constants;
 
 public class PivotSubSystem  extends SubsystemBase {
 
+
         private final SparkMax pivot;
         private final RelativeEncoder pivotEncoder;
 
