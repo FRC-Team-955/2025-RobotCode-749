@@ -18,7 +18,7 @@ public class ElevatorPID extends Command {
 
     public ElevatorPID(ElevatorSubSystems elevatorSubSystems, double setPoint) {
             this.elevatorSubSystems = elevatorSubSystems;
-            this.pidController = new PIDController(0.001,0,0.005);
+            this.pidController = new PIDController(0.0001,0,0);
             this.setPoint = setPoint;
             addRequirements(elevatorSubSystems);
         }

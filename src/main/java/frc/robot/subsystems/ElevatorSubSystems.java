@@ -27,7 +27,7 @@ public class ElevatorSubSystems  extends SubsystemBase {
 
         elevatorEncoder = elevator.getEncoder();
         SparkBaseConfig config= new SparkMaxConfig();
-        config.idleMode(SparkBaseConfig.IdleMode.kBrake);
+        config.idleMode(SparkBaseConfig.IdleMode.kCoast);
         elevator.configure(config, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
     }
     public void setMotorSpeed(double speed) {
@@ -54,6 +54,6 @@ public class ElevatorSubSystems  extends SubsystemBase {
         SmartDashboard.putNumber("currentElevatorEncoder", currentElevatorEncoder());
     }
     public double currentElevatorEncoder() {
-        return elevatorEncoder.getPosition() * Constants.ElevatorConstants.gearRatio;
+        return elevatorEncoder.getPosition();
     }
 }

@@ -83,7 +83,7 @@ public class RobotContainer {
         .whileTrue(rollerSubsystem.runRoller(rollerSubsystem, () -> RollerConstants.ROLLER_EJECT_VALUE, () -> 0));
 
 
-    operatorController.leftTrigger().whileTrue(new Pivot(pivotSubSystem, Constants.PivotConstants.encoderSetpoint));
+    //operatorController.leftTrigger().whileTrue(new Pivot(pivotSubSystem, Constants.PivotConstants.encoderSetpoint));
 
     operatorController.rightTrigger().toggleOnTrue(new ElevatorPID(elevatorSubSystems,Constants.ElevatorConstants.encoderSetpoint));
 
@@ -100,7 +100,7 @@ public class RobotContainer {
 
 
 
-    pivotSubSystem.setDefaultCommand(new Pivot(pivotSubSystem, -0));
+    //pivotSubSystem.setDefaultCommand(new Pivot(pivotSubSystem, -0));
 
 
 
