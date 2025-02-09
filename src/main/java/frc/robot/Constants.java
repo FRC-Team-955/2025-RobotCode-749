@@ -37,6 +37,7 @@ public final class Constants {
   }
 
 
+
   public static final class PivotConstants {
     public static final int PIVOT_MOTOR_ID = 7;
     public static final double gearRatio = 1 / 75;
