@@ -31,19 +31,19 @@ public final class Constants {
     public static final int DRIVE_MOTOR_CURRENT_LIMIT = 60;
   }
   public static final class ElevatorConstants {
-    public static final int ElEVATOR_MOTOR_ID = 6;
+    public static final int ElEVATOR_MOTOR_ID = 12;
     public static final double gearRatio = 1/20;
-    public static final double targetHeight = 2;
+    public static final double targetHeight = -130;
   }
 
   public static final class PivotConstants {
-    public static final int ElEVATOR_MOTOR_ID = 7;
-    public static final double gearRatio = 1/1;
+    public static final int Pivot_MOTOR_ID = 9;
+    public static final double gearRatio = 1/75;
     public static final double targetPosition = 0;
   }
 
   public static final class RollerConstants {
-    public static final int ROLLER_MOTOR_ID = 5;
+    public static final int ROLLER_MOTOR_ID = 6;
     public static final int ROLLER_MOTOR_CURRENT_LIMIT = 60;
     public static final double ROLLER_MOTOR_VOLTAGE_COMP = 10;
     public static final double ROLLER_EJECT_VALUE = 0.44;

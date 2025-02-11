@@ -14,7 +14,7 @@ public class Elevator extends Command {
 
     public Elevator(ElevatorSubSystems elevatorSubSystems, double targetHeight) {
             this.elevatorSubSystems = new ElevatorSubSystems();
-            this.pidController = new PIDController(0.001, 0, 0);
+            this.pidController = new PIDController(0.0001, 0, 0);
             this.targetHeight = targetHeight;
             //this.encoderHeight = elevatorSubSystems.currentEleveatorEncoder();
             addRequirements(elevatorSubSystems);

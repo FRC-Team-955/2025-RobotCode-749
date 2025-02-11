@@ -17,7 +17,7 @@ public class PivotSubSystems extends SubsystemBase {
     private final RelativeEncoder pivotEncoder;
 
     public PivotSubSystems() {
-        pivotMotor = new SparkMax(Constants.PivotConstants.ElEVATOR_MOTOR_ID, SparkLowLevel.MotorType.kBrushless);
+        pivotMotor = new SparkMax(Constants.PivotConstants.Pivot_MOTOR_ID, SparkLowLevel.MotorType.kBrushless);
 
         pivotEncoder = pivotMotor.getEncoder();
 

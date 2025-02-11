@@ -64,7 +64,7 @@ public ElevatorSubSystems() {
     }
 
     public double currentEleveatorEncoder() {
-        return elevatorEncoder.getPosition() * Constants.ElevatorConstants.gearRatio;
+        return elevatorEncoder.getPosition(); //* Constants.ElevatorConstants.gearRatio;
     }
 
         @Override
