@@ -7,6 +7,7 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -14,6 +15,7 @@ import frc.robot.Constants;
 public class ElevatorSubSystems  extends SubsystemBase {
 
     private final SparkMax elevator;
+    private boolean hasZeroed = false;
     private final DigitalInput topLimitSwitch;
     private final DigitalInput bottomLimitSwitch;
     private final RelativeEncoder elevatorEncoder;
@@ -28,11 +30,12 @@ public class ElevatorSubSystems  extends SubsystemBase {
         elevatorEncoder = elevator.getEncoder();
         SparkBaseConfig config= new SparkMaxConfig();
         config.idleMode(SparkBaseConfig.IdleMode.kCoast);
+        config.inverted(true);
         elevator.configure(config, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
     }
     public void setMotorSpeed(double speed) {
         if (speed > 0) {
-            if (topLimitSwitch.get()) {
+            if (!topLimitSwitch.get()) {
                 // We are going up and top limit is tripped so stop
                 elevator.set(0);
             } else {
@@ -40,7 +43,7 @@ public class ElevatorSubSystems  extends SubsystemBase {
                 elevator.set(speed);
             }
         } else {
-            if (bottomLimitSwitch.get()) {
+            if (!bottomLimitSwitch.get()) {
                 // We are going down and bottom limit is tripped so stop
                 elevator.set(0);
             } else {
@@ -52,6 +55,20 @@ public class ElevatorSubSystems  extends SubsystemBase {
     @Override
     public void periodic() {
         SmartDashboard.putNumber("currentElevatorEncoder", currentElevatorEncoder());
+        SmartDashboard.putNumber("ElevatorVoltage", elevator.getAppliedOutput() * elevator.getBusVoltage());
+        SmartDashboard.putBoolean("Toplimit", topLimitSwitch.get());
+        SmartDashboard.putBoolean("bottomlimit", bottomLimitSwitch.get());
+
+        if(!hasZeroed && !bottomLimitSwitch.get()) {
+            // Zero the elevator
+            elevatorEncoder.setPosition(0);
+            hasZeroed = true;
+        }
+        SmartDashboard.putBoolean("HasZeroed", hasZeroed);
+
+        if (!hasZeroed) {
+            DriverStation.reportError("Elevator not zeroed!", false);
+        }
     }
     public double currentElevatorEncoder() {
         return elevatorEncoder.getPosition();
