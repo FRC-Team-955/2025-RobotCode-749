@@ -24,22 +24,19 @@ public class ElevatorPID extends Command {
         public void initialize() {
             pidController.reset();
             SmartDashboard.putNumber("desiredDistance", elevatorEncoderSetpoint);
-            System.out.println("started");
         }
         @Override
         public void execute() {
             this.speed = pidController.calculate(elevatorSubSystems.currentElevatorEncoder(), elevatorEncoderSetpoint);
             elevatorSubSystems.setMotorSpeed(speed);
             SmartDashboard.putNumber("elevatorSpeedOutput", speed);
-
-
         }
 
         @Override
         public void end(boolean interrupted) {
             elevatorSubSystems.setMotorSpeed(speed);
-            System.out.println("ended");
         }
+
         @Override
         public boolean isFinished() {
             return false;
