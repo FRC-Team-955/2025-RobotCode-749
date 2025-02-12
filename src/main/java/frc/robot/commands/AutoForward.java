@@ -39,8 +39,6 @@ public class AutoForward extends Command {
         //this.speedLeft = pidControllerLeft.calculate(driveSubsystem.leftCurrentDistance(), encoderSetpoint);
         //this.speedRight = pidControllerRight.calculate(driveSubsystem.rightCurrentDistance(),encoderSetpoint);
         //this.speed = pidController.calculate(driveSubsystem.currentDistance(), encoderSetpoint);
-
-
         //driveSubsystem.setSpeed(speedLeft, speedRight);
 
         driveSubsystem.setSpeed(speed, speed);
