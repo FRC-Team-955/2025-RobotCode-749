@@ -30,8 +30,6 @@ public class ElevatorPID extends Command {
             this.speed = pidController.calculate(elevatorSubSystems.currentElevatorEncoder(), elevatorEncoderSetpoint);
             elevatorSubSystems.setMotorSpeed(speed);
             SmartDashboard.putNumber("elevatorSpeedOutput", speed);
-
-
         }
 
         @Override
