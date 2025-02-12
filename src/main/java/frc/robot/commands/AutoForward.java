@@ -9,41 +9,50 @@ import frc.robot.subsystems.CANDriveSubsystem;
 public class AutoForward extends Command {
     private final CANDriveSubsystem driveSubsystem;
     private final double targetDistance;
-    private final PIDController pidControllerLeft;
-    private final PIDController pidControllerRight;
+    //private final PIDController pidControllerLeft;
+    private final PIDController pidController;
+    private double speed;
+    //private final PIDController pidControllerRight;
     private double encoderSetpoint;
     private double speedLeft;
     private double speedRight;
     public AutoForward(CANDriveSubsystem driveSubsystem, double targetDistance) {
         this.driveSubsystem = driveSubsystem;
-        this.pidControllerRight = new PIDController(0.01,0,0);
-        this.pidControllerLeft = new PIDController(0.01, 0, 0);
+        //this.pidControllerRight = new PIDController(0.015,0,0);
+        //this.pidControllerLeft = new PIDController(0.015, 0, 0);
+        this.pidController = new PIDController(0.005,0,0);
         this.targetDistance = targetDistance;
         addRequirements(driveSubsystem);
     }
     @Override
     public void initialize() {
-        pidControllerLeft.reset();
-        pidControllerRight.reset();
+        //pidControllerLeft.reset();
+        pidController.reset();
+        //pidControllerRight.reset();
         encoderSetpoint = driveSubsystem.currentDistance() + targetDistance;
+
+        this.speed = pidController.calculate(driveSubsystem.currentDistance(), encoderSetpoint);
         SmartDashboard.putNumber("encoderSetpoint", encoderSetpoint);
-        System.out.println("started");
     }
     @Override
     public void execute() {
-        this.speedLeft = pidControllerLeft.calculate(driveSubsystem.leftCurrentDistance(), encoderSetpoint);
-        this.speedRight = pidControllerRight.calculate(driveSubsystem.rightCurrentDistance(),encoderSetpoint);
+        //this.speedLeft = pidControllerLeft.calculate(driveSubsystem.leftCurrentDistance(), encoderSetpoint);
+        //this.speedRight = pidControllerRight.calculate(driveSubsystem.rightCurrentDistance(),encoderSetpoint);
+        //this.speed = pidController.calculate(driveSubsystem.currentDistance(), encoderSetpoint);
 
-        driveSubsystem.setSpeed(speedLeft, speedRight);
-        SmartDashboard.putNumber("leftPidOutput", speedLeft);
 
-        SmartDashboard.putNumber("rightPidOutput", speedRight);
+        //driveSubsystem.setSpeed(speedLeft, speedRight);
+
+        driveSubsystem.setSpeed(speed, speed);
+        //SmartDashboard.putNumber("leftPidOutput", speedLeft);
+
+        //SmartDashboard.putNumber("rightPidOutput", speedRight);
+
+        SmartDashboard.putNumber("PidOutput", speed);
     }
     @Override
     public void end(boolean interrupted) {
-        driveSubsystem.setSpeed(speedLeft, speedRight);
-        //driveSubsystem.setSpeed(0, 0);
-        System.out.println("ended");
+        driveSubsystem.setSpeed(speed, speed);
     }
     @Override
     public boolean isFinished() {

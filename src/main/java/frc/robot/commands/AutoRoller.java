@@ -16,7 +16,6 @@ public class AutoRoller extends Command {
     }
     @Override
     public void initialize() {
-        System.out.println("started");
     }
     @Override
     public void execute() {
@@ -27,7 +26,6 @@ public class AutoRoller extends Command {
     @Override
     public void end(boolean interrupted) {
         rollerSubsystem.setRollerMotor(0.0);
-        System.out.println("ended");
     }
     @Override
     public boolean isFinished() {

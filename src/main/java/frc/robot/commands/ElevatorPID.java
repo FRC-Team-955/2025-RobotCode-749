@@ -24,7 +24,6 @@ public class ElevatorPID extends Command {
         public void initialize() {
             pidController.reset();
             SmartDashboard.putNumber("desiredDistance", elevatorEncoderSetpoint);
-            System.out.println("started");
         }
         @Override
         public void execute() {
@@ -38,7 +37,6 @@ public class ElevatorPID extends Command {
         @Override
         public void end(boolean interrupted) {
             elevatorSubSystems.setMotorSpeed(speed);
-            System.out.println("ended");
         }
         @Override
         public boolean isFinished() {

@@ -85,7 +85,7 @@ public class RobotContainer {
 
         operatorController.leftTrigger().whileTrue(new Pivot(pivotSubSystem, Constants.PivotConstants.encoderSetpoint));
 
-        operatorController.rightTrigger().toggleOnTrue(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint));
+        driverController.rightTrigger().toggleOnTrue(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint));
 
         // Set the default command for the drive subsystem to the command provided by
         // factory with the values provided by the joystick axes on the driver
