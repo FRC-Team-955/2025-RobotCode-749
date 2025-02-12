@@ -86,11 +86,6 @@ public class CANDriveSubsystem extends SubsystemBase {
 
 
   }
-  public void encoderReset()
-  { leftEncoder.setPosition(0.0);
-    rightEncoder.setPosition(0.0);
-  }
-
 
   @Override
   public void periodic() {

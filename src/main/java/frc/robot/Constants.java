@@ -34,13 +34,13 @@ public final class Constants {
     public static final int ElEVATOR_MOTOR_ID = 12;
 
     public static final double gearRatio =  1 / 20;
-    public static final double encoderSetpoint = 110; // 124 is the top if 0 is the bottom
+    public static final double encoderSetpoint = 124; // 124 is the top if 0 is the bottom
   }
 
 
 
   public static final class PivotConstants {
-    public static final int PIVOT_MOTOR_ID = 7;
+    public static final int PIVOT_MOTOR_ID = 9;
     public static final double gearRatio = 1 / 75;
     public static final double encoderSetpoint = 0.0;
 
