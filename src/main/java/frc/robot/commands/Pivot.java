@@ -3,6 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.CANRollerSubsystem;
 import frc.robot.subsystems.PivotSubSystem;
 
 public class Pivot extends Command {
@@ -15,20 +16,16 @@ public class Pivot extends Command {
 
     private double speed;
 
-    private final double targetDistance;
-
     public Pivot(PivotSubSystem pivotSubSystem, double targetDistance) {
         this.pivotSubSystem = pivotSubSystem;
-        this.pidController = new PIDController(0.01,0,0);
-        this.targetDistance = targetDistance;
+        this.pidController = new PIDController(0.04,0,0);
+        this.encoderSetpoint = targetDistance;
         addRequirements(pivotSubSystem);
     }
     @Override
     public void initialize() {
         pidController.reset();
-        encoderSetpoint = pivotSubSystem.currentPivotEncoder() + targetDistance;
         SmartDashboard.putNumber("encoderSetpoint", encoderSetpoint);
-        System.out.println("started");
     }
     @Override
     public void execute() {
@@ -38,15 +35,10 @@ public class Pivot extends Command {
     }
     @Override
     public void end(boolean interrupted) {
-        pivotSubSystem.setSpeed(speed);
-        System.out.println("ended");
+            pivotSubSystem.setSpeed(speed);
     }
     @Override
     public boolean isFinished() {
-        if (pivotSubSystem.currentPivotEncoder() >= encoderSetpoint ) {
-            return true;
-        }
-        else
-            return false;
+        return  false;
     }
 }

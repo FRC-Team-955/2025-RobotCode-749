@@ -15,7 +15,7 @@ import frc.robot.Constants;
 public class ElevatorSubSystems  extends SubsystemBase {
 
     private final SparkMax elevator;
-    private boolean hasZeroed = false;
+    public boolean hasZeroed = false;
     private final DigitalInput topLimitSwitch;
     private final DigitalInput bottomLimitSwitch;
     private final RelativeEncoder elevatorEncoder;
@@ -29,7 +29,7 @@ public class ElevatorSubSystems  extends SubsystemBase {
 
         elevatorEncoder = elevator.getEncoder();
         SparkBaseConfig config= new SparkMaxConfig();
-        config.idleMode(SparkBaseConfig.IdleMode.kCoast);
+        config.idleMode(SparkBaseConfig.IdleMode.kBrake);
         config.inverted(true);
         elevator.configure(config, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
     }

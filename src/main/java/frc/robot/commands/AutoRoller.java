@@ -4,14 +4,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.CANRollerSubsystem;
 
-import java.util.Timer;
-
 public class AutoRoller extends Command {
     private final CANRollerSubsystem rollerSubsystem;
-    //private final Timer timer;
+    private double inOrOut;
 
-    public AutoRoller(CANRollerSubsystem rollerSubsystem) {
+    public AutoRoller(CANRollerSubsystem rollerSubsystem, double inOrOut) {
         this.rollerSubsystem = rollerSubsystem;
+        this.inOrOut = inOrOut;
         addRequirements(rollerSubsystem);
     }
     @Override
@@ -19,7 +18,7 @@ public class AutoRoller extends Command {
     }
     @Override
     public void execute() {
-        rollerSubsystem.setRollerMotor(Constants.RollerConstants.ROLLER_EJECT_VALUE);
+        rollerSubsystem.setRollerMotor(inOrOut);
 
     }
 
@@ -29,7 +28,6 @@ public class AutoRoller extends Command {
     }
     @Override
     public boolean isFinished() {
-
         return false;
     }
 }

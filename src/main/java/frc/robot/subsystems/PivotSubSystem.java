@@ -23,7 +23,7 @@ public class PivotSubSystem  extends SubsystemBase {
 
             pivotEncoder = pivot.getEncoder();
 
-            SparkBaseConfig config= new SparkMaxConfig();
+            SparkBaseConfig config = new SparkMaxConfig();
             config.idleMode(SparkBaseConfig.IdleMode.kBrake);
             pivot.configure(config, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
         }
@@ -38,7 +38,7 @@ public class PivotSubSystem  extends SubsystemBase {
             SmartDashboard.putNumber("currentPivotEncoder", currentPivotEncoder());
         }
         public double currentPivotEncoder() {
-            return pivotEncoder.getPosition() * Constants.PivotConstants.gearRatio;
+            return pivotEncoder.getPosition();
         }
     }
 

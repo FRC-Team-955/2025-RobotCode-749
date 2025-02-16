@@ -10,14 +10,8 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.AutoForward;
-import frc.robot.commands.AutoRoller;
-import frc.robot.commands.ElevatorPID;
-import frc.robot.commands.Pivot;
-import frc.robot.subsystems.CANDriveSubsystem;
-import frc.robot.subsystems.CANRollerSubsystem;
-import frc.robot.subsystems.ElevatorSubSystems;
-import frc.robot.subsystems.PivotSubSystem;
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
 
 import java.util.function.BooleanSupplier;
 
@@ -32,10 +26,11 @@ import java.util.function.BooleanSupplier;
  */
 public class RobotContainer {
     // The robot's subsystems
-  private final CANDriveSubsystem driveSubsystem = new CANDriveSubsystem();
-  private final CANRollerSubsystem rollerSubsystem = new CANRollerSubsystem();
+    private final CANDriveSubsystem driveSubsystem = new CANDriveSubsystem();
+      private final CANRollerSubsystem rollerSubsystem = new CANRollerSubsystem();
     private final ElevatorSubSystems elevatorSubSystems = new ElevatorSubSystems();
-  private final PivotSubSystem pivotSubSystem = new PivotSubSystem();
+    private final PivotSubSystem pivotSubSystem = new PivotSubSystem();
+//    private final AlgaeSubSystem algaeIntakeSubSystem = new AlgaeSubSystem();
 
     // The driver's controller
     private final CommandXboxController driverController = new CommandXboxController(
@@ -57,9 +52,10 @@ public class RobotContainer {
         // Set the options to show up in the Dashboard for selecting auto modes. If you
         // add additional auto modes you can add additional lines here with
         // autoChooser.addOption
-    autoChooser.setDefaultOption("Autonomus",  new SequentialCommandGroup(new AutoForward(driveSubsystem, Constants.DriveConstants.distance), new ParallelCommandGroup(
-                        new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint))));
-    //autoChooser.addOption("Autonomous", Autos.exampleAuto(driveSubsystem));
+        autoChooser.setDefaultOption("Autonomus", new SequentialCommandGroup(new AutoForward(driveSubsystem, Constants.DriveConstants.distance), new ParallelCommandGroup(
+                new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint), new Pivot(pivotSubSystem,Constants.PivotConstants.topEncoderSetpoint),
+                new AutoRoller(rollerSubsystem,0.5))));
+        //autoChooser.addOption("Autonomous", Autos.exampleAuto(driveSubsystem));
     }
 
     /**
@@ -79,48 +75,57 @@ public class RobotContainer {
     private void configureBindings() {
         // Set the A button to run the "runRoller" command from the factory with a fixed
         // value ejecting the gamepiece while the button is held
-    operatorController.a()
-            .whileTrue(rollerSubsystem.runRoller(rollerSubsystem, () -> Constants.RollerConstants.ROLLER_EJECT_VALUE, () -> 0));
+//    operatorController.a()
+//            .whileTrue(rollerSubsystem.runRoller(rollerSubsystem, () -> Constants.RollerConstants.ROLLER_EJECT_VALUE, () -> 0));
+        driverController.a().whileTrue(new AutoRoller(rollerSubsystem,Constants.RollerConstants.ROLLER_EJECT_VALUE));
+        driverController.b().whileTrue((new AutoRoller(rollerSubsystem,-Constants.RollerConstants.ROLLER_EJECT_VALUE)));
 
+        if (elevatorSubSystems.hasZeroed) {
+        driverController.leftTrigger().whileTrue(new Pivot(pivotSubSystem, Constants.PivotConstants.bottomEncoderSetpoint));}
+        else {driverController.leftBumper().whileTrue(new Pivot(pivotSubSystem, Constants.PivotConstants.topEncoderSetpoint));
+        }
 
-        operatorController.leftTrigger().whileTrue(new Pivot(pivotSubSystem, Constants.PivotConstants.encoderSetpoint));
-
+//       driverController.x().whileTrue(new AlgaePivot(algaeIntakeSubSystem,Constants.AlgaeIntakeConstants.encoderSetpoint));
+//        driverController.rightBumper().toggleOnTrue(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.halfEncoderSetpoint));
         driverController.rightTrigger().toggleOnTrue(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint));
 
         // Set the default command for the drive subsystem to the command provided by
         // factory with the values provided by the joystick axes on the driver
-    // controller. The Y axis of the controller is inverted so that pushing the
-    // stick away from you (a negative value) drives the robot forwards (a positive
-    // value)
-    driveSubsystem.setDefaultCommand(
-        driveSubsystem.driveArcade(
-            driveSubsystem, () -> -driverController.getLeftY(), () -> -driverController.getRightX()));
+        // controller. The Y axis of the controller is inverted so that pushing the
+        // stick away from you (a negative value) drives the robot forwards (a positive
+        // value)
+        driveSubsystem.setDefaultCommand(
+                driveSubsystem.driveArcade(
+                        driveSubsystem, () -> -driverController.getLeftY(), () -> -driverController.getRightX()));
 
         elevatorSubSystems.setDefaultCommand(new ElevatorPID(elevatorSubSystems, 0));
+        rollerSubsystem.setDefaultCommand(new AutoRoller(rollerSubsystem,0.0));
+//        algaeIntakeSubSystem.setDefaultCommand(new AlgaePivot(algaeIntakeSubSystem,0));
 
 
-        pivotSubSystem.setDefaultCommand(new Pivot(pivotSubSystem, -0));
+        pivotSubSystem.setDefaultCommand(new Pivot(pivotSubSystem, 0));
 
 
-    // Set the default command for the roller subsystem to the command from the
-    // factory with the values provided by the triggers on the operator controller
-    rollerSubsystem.setDefaultCommand(
-        rollerSubsystem.runRoller(
-            rollerSubsystem,
-            () -> operatorController.getRightTriggerAxis(),
-            () -> operatorController.getLeftTriggerAxis()));
+        // Set the default command for the roller subsystem to the command from the
+         // factory with the values provided by the triggers on the operator controller
+//    rollerSubsystem.setDefaultCommand(
+//        rollerSubsystem.runRoller(
+//            rollerSubsystem,
+//            () -> operatorController.getRightTriggerAxis(),
+//            () -> operatorController.getLeftTriggerAxis()));
     }
 
-    /**
-     * Use this to pass the autonomous command to the main {@link Robot} class.
-     *
-     * @return the command to run in autonomous
-     */
-    public Command getAutonomousCommand() {
-        // An example command will be run in autonomous
-        return autoChooser.getSelected();
-    //new Pivot(pivotSubSystem,Constants.PivotConstants.encoderSetpoint),
-    //new AutoRoller(rollerSubsystem)));
+        /**
+         * Use this to pass the autonomous command to the main {@link Robot} class.
+         *
+         * @return the command to run in autonomous
+         */
+        public Command getAutonomousCommand () {
+            // An example command will be run in autonomous
+            return autoChooser.getSelected();
+
+        }
+
 
     }
-}
+
