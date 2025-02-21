@@ -40,7 +40,8 @@ public final class Constants {
 public static final class AlgaeConstants{
     public static final int Algae_Intake_ID = 10;
     public static final double gearRatio = 0.0;
-    public static final double encoderSetpoint = -4.8;
+    public static final double encoderSetpoint = 0.19; //intake
+  public static final double original = 0.1; //taken
 //FIND NEW ENCODERSETPOINT FOR ALGAEPIVOT
 }
 

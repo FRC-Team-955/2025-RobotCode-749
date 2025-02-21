@@ -31,7 +31,8 @@ public class RobotContainer {
       private final CANRollerSubsystem rollerSubsystem = new CANRollerSubsystem();
     private final ElevatorSubSystems elevatorSubSystems = new ElevatorSubSystems();
     private final PivotSubSystem pivotSubSystem = new PivotSubSystem();
-   // private final AlgaeSubSystem algaeSubSystem = new AlgaeSubSystem();
+    private final AlgaeSubSystem algaeSubSystem = new AlgaeSubSystem();
+//    private final AlageRollerSubsystem alageRollerSubsystem = new AlageRollerSubsystem();
 
     // The driver's controller
     private final CommandXboxController driverController = new CommandXboxController(
@@ -87,8 +88,9 @@ public class RobotContainer {
 
        // Delet this//operatorController.x().whileTrue(
                 //Delet this//new AlgaePivot(algaeSubSystem, rollerSubsystem, Constants.RollerConstants.ALAGE_ROLLER_INTAKE, Constants.AlgaeConstants.encoderSetpoint));
-        operatorController.leftBumper().toggleOnTrue(
+        operatorController.leftTrigger().toggleOnTrue(
                 new Pivot(pivotSubSystem, Constants.PivotConstants.lvTwoAndThreeEncoderSetpoint));
+
 
 
 
@@ -107,7 +109,7 @@ public class RobotContainer {
 
         elevatorSubSystems.setDefaultCommand(new ElevatorPID(elevatorSubSystems, 0));
         rollerSubsystem.setDefaultCommand(new AutoRoller(rollerSubsystem,0.2));
-        //algaeSubSystem.setDefaultCommand(new AlgaePivot(algaeSubSystem, rollerSubsystem, 0, 0.0));//-0.2
+        algaeSubSystem.setDefaultCommand(new AlgaePivot(algaeSubSystem, Constants.AlgaeConstants.original));//0.1
         pivotSubSystem.setDefaultCommand(new Pivot(pivotSubSystem, -16));
 
 

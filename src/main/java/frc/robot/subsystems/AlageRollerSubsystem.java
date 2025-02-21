@@ -4,10 +4,12 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -23,19 +25,10 @@ public class AlageRollerSubsystem extends SubsystemBase {
   public AlageRollerSubsystem() {
     // Set up the roller motor as a brushed motor
     algaeRollerMotor = new SparkMax(RollerConstants.ALGAE_ROLLER_MOTOR_ID, MotorType.kBrushed);
-    // Set can timeout. Because this project only sets parameters once on
-    // construction, the timeout can be long without blocking robot operation. Code
-    // which sets or gets parameters during operation may need a shorter timeout.
-    algaeRollerMotor.setCANTimeout(250);
-    // Create and apply configuration for roller motor. Voltage compensation helps
-    // the roller behave the same as the battery
-    // voltage dips. The current limit helps prevent breaker trips or burning out
-    // the motor in the event the roller stalls.
 
     SparkMaxConfig algaeRollerConfig = new SparkMaxConfig();
-    algaeRollerConfig.voltageCompensation(RollerConstants.ALAGE_ROLLER_MOTOR_VOLTAGE_COMP);
-    algaeRollerConfig.smartCurrentLimit(RollerConstants.ALAGE_ROLLER_MOTOR_CURRENT_LIMIT);
-    algaeRollerMotor.configure(algaeRollerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    algaeRollerConfig.idleMode(SparkBaseConfig.IdleMode.kBrake);
+    algaeRollerMotor.configure(algaeRollerConfig, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
   }
 
   @Override

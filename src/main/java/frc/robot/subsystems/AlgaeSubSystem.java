@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.AbsoluteEncoder;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkLowLevel;
 import com.revrobotics.spark.SparkMax;
@@ -34,7 +33,7 @@ public class AlgaeSubSystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("currentAlgaePivotEncoder", currentAlgaePivotEncoder());
+        //SmartDashboard.putNumber("currentAlgaePivotEncoder", currentAlgaePivotEncoder());
         SmartDashboard.putNumber("Encoder", currentEncoderPivotPosition());
     }
     public double currentEncoderPivotPosition() {

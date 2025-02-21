@@ -13,18 +13,13 @@ public class AlgaePivot extends Command {
     private double encoderSetpoint;
     private final PIDController pidController;
     private double speed;
-    private double speed2;
-    private final AlageRollerSubsystem rollerSubsystem;
 
 
-    public AlgaePivot(AlgaeSubSystem algaeSubSystem, AlageRollerSubsystem rollerSubsystem, double speed2, double targetDistance) {
+    public AlgaePivot(AlgaeSubSystem algaeSubSystem, double targetDistance) {
         this.algaeSubSystem = algaeSubSystem;
         this.pidController = new PIDController(0.00001, 0, 0);
         this.encoderSetpoint = targetDistance;
         addRequirements(algaeSubSystem);
-        this.speed2 = speed2;
-        this.rollerSubsystem = rollerSubsystem;
-        addRequirements(rollerSubsystem);
     }
 
     @Override
@@ -39,7 +34,6 @@ public class AlgaePivot extends Command {
         //this.speed = pidController.calculate(algaeSubSystem.currentAlgaePivotEncoder(), encoderSetpoint);
         this.speed = pidController.calculate(algaeSubSystem.currentEncoderPivotPosition(), encoderSetpoint);
         algaeSubSystem.setSpeed(speed);
-        rollerSubsystem.setAlgaeRollerMotor(speed2);
         SmartDashboard.putNumber("AlgaePivotPidOutput", speed);
 
     }
@@ -47,7 +41,6 @@ public class AlgaePivot extends Command {
     @Override
     public void end(boolean interrupted) {
         algaeSubSystem.setSpeed(speed);
-        rollerSubsystem.setAlgaeRollerMotor(0.0);
     }
 
     @Override
