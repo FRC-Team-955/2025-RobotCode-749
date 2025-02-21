@@ -32,7 +32,7 @@ public class RobotContainer {
     private final ElevatorSubSystems elevatorSubSystems = new ElevatorSubSystems();
     private final PivotSubSystem pivotSubSystem = new PivotSubSystem();
     private final AlgaeSubSystem algaeSubSystem = new AlgaeSubSystem();
-//    private final AlageRollerSubsystem alageRollerSubsystem = new AlageRollerSubsystem();
+   // private final AlageRollerSubsystem alageRollerSubsystem = new AlageRollerSubsystem();
 
     // The driver's controller
     private final CommandXboxController driverController = new CommandXboxController(
@@ -92,6 +92,10 @@ public class RobotContainer {
                 new Pivot(pivotSubSystem, Constants.PivotConstants.lvTwoAndThreeEncoderSetpoint));
 
 
+        operatorController.leftBumper().toggleOnTrue(
+                new AlgaePivot(algaeSubSystem, Constants.AlgaeConstants.encoderSetpoint));
+               // new AlageRoller(alageRollerSubsystem, Constants.RollerConstants.ROLLER_SHOOT_VALUE)));
+
 
 
 //       driverController.x().whileTrue(new AlgaePivot(algaeIntakeSubSystem,Constants.AlgaeIntakeConstants.encoderSetpoint));
@@ -111,6 +115,7 @@ public class RobotContainer {
         rollerSubsystem.setDefaultCommand(new AutoRoller(rollerSubsystem,0.2));
         algaeSubSystem.setDefaultCommand(new AlgaePivot(algaeSubSystem, Constants.AlgaeConstants.original));//0.1
         pivotSubSystem.setDefaultCommand(new Pivot(pivotSubSystem, -16));
+        //alageRollerSubsystem.setDefaultCommand(new AlageRoller(alageRollerSubsystem, 0));
 
 
         // Set the default command for the roller subsystem to the command from the

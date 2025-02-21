@@ -3,8 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
-import frc.robot.subsystems.AlageRollerSubsystem;
+
 import frc.robot.subsystems.AlgaeSubSystem;
 import frc.robot.subsystems.CANRollerSubsystem;
 
@@ -17,7 +16,7 @@ public class AlgaePivot extends Command {
 
     public AlgaePivot(AlgaeSubSystem algaeSubSystem, double targetDistance) {
         this.algaeSubSystem = algaeSubSystem;
-        this.pidController = new PIDController(0.00001, 0, 0);
+        this.pidController = new PIDController(0.005, 0, 0);
         this.encoderSetpoint = targetDistance;
         addRequirements(algaeSubSystem);
     }
