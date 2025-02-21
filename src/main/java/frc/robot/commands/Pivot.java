@@ -25,7 +25,7 @@ public class Pivot extends Command {
     @Override
     public void initialize() {
         pidController.reset();
-        SmartDashboard.putNumber("encoderSetpoint", encoderSetpoint);
+        SmartDashboard.putNumber("pivotEncoderSetpoint", encoderSetpoint);
     }
     @Override
     public void execute() {
