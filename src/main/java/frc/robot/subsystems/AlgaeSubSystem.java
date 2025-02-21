@@ -13,14 +13,15 @@ import frc.robot.Constants;
 
 public class AlgaeSubSystem extends SubsystemBase {
     private final SparkMax algaePivot;
-    private final AbsoluteEncoder algaePivotEncoder;
+    //private final AbsoluteEncoder algaePivotEncoder;
     private final DutyCycleEncoder encoder;
 
     public AlgaeSubSystem() {
        algaePivot = new SparkMax(Constants.AlgaeConstants.Algae_Intake_ID, SparkLowLevel.MotorType.kBrushless);
-       algaePivotEncoder = algaePivot.getAbsoluteEncoder();
+      // algaePivotEncoder = algaePivot.getAbsoluteEncoder();
        encoder = new DutyCycleEncoder(2);
         SparkBaseConfig config = new SparkMaxConfig();
+        config.inverted(true);
         config.idleMode(SparkBaseConfig.IdleMode.kBrake);
         algaePivot.configure(config, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
     }
@@ -40,7 +41,7 @@ public class AlgaeSubSystem extends SubsystemBase {
         return encoder.get();
     }
 
-    public double currentAlgaePivotEncoder() {
+    /*public double currentAlgaePivotEncoder() {
         return algaePivotEncoder.getPosition();
-    }
+    }*/
 }

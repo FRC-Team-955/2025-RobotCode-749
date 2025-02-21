@@ -16,7 +16,7 @@ public class AlgaePivot extends Command {
 
     public AlgaePivot(AlgaeSubSystem algaeSubSystem, double targetDistance) {
         this.algaeSubSystem = algaeSubSystem;
-        this.pidController = new PIDController(0.005, 0, 0);
+        this.pidController = new PIDController(0.4, 0.00001, 0.0001);
         this.encoderSetpoint = targetDistance;
         addRequirements(algaeSubSystem);
     }
@@ -25,7 +25,6 @@ public class AlgaePivot extends Command {
     public void initialize() {
         pidController.reset();
         SmartDashboard.putNumber("algaeEncoderSetpoint", encoderSetpoint);
-        SmartDashboard.putNumber("AlgetPivotPosition", encoderSetpoint);
     }
 
     @Override
