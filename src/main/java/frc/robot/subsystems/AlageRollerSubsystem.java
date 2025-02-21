@@ -4,53 +4,42 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-import frc.robot.Constants.RollerConstants;
-import java.util.function.DoubleSupplier;
-
-import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.RollerConstants;
+
+import java.util.function.DoubleSupplier;
 
 /** Class to run the rollers over CAN */
-public class CANRollerSubsystem extends SubsystemBase {
-  private final SparkMax rollerMotor;
+public class AlageRollerSubsystem extends SubsystemBase {
   private final SparkMax algaeRollerMotor;
 
-  public CANRollerSubsystem() {
+  public AlageRollerSubsystem() {
     // Set up the roller motor as a brushed motor
-    rollerMotor = new SparkMax(RollerConstants.ROLLER_MOTOR_ID, MotorType.kBrushed);
     algaeRollerMotor = new SparkMax(RollerConstants.ALGAE_ROLLER_MOTOR_ID, MotorType.kBrushed);
     // Set can timeout. Because this project only sets parameters once on
     // construction, the timeout can be long without blocking robot operation. Code
     // which sets or gets parameters during operation may need a shorter timeout.
-    rollerMotor.setCANTimeout(250);
     algaeRollerMotor.setCANTimeout(250);
     // Create and apply configuration for roller motor. Voltage compensation helps
     // the roller behave the same as the battery
     // voltage dips. The current limit helps prevent breaker trips or burning out
     // the motor in the event the roller stalls.
-    SparkMaxConfig rollerConfig = new SparkMaxConfig();
-    rollerConfig.voltageCompensation(RollerConstants.ROLLER_MOTOR_VOLTAGE_COMP);
-    rollerConfig.smartCurrentLimit(RollerConstants.ROLLER_MOTOR_CURRENT_LIMIT);
-    rollerMotor.configure(rollerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     SparkMaxConfig algaeRollerConfig = new SparkMaxConfig();
     algaeRollerConfig.voltageCompensation(RollerConstants.ALAGE_ROLLER_MOTOR_VOLTAGE_COMP);
     algaeRollerConfig.smartCurrentLimit(RollerConstants.ALAGE_ROLLER_MOTOR_CURRENT_LIMIT);
-    rollerMotor.configure(rollerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    algaeRollerMotor.configure(algaeRollerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
   @Override
   public void periodic() {
-  }
-  public void setRollerMotor(double speed2){
-    rollerMotor.set(speed2);
   }
 
   public void setAlgaeRollerMotor(double speed) {
@@ -58,9 +47,9 @@ public class CANRollerSubsystem extends SubsystemBase {
   }
   // Command to run the roller with joystick inputs
   public Command runRoller(
-      CANRollerSubsystem rollerSubsystem, DoubleSupplier forward, DoubleSupplier reverse) {
+          AlageRollerSubsystem rollerSubsystem, DoubleSupplier forward, DoubleSupplier reverse) {
     return Commands.run(
-        () -> rollerMotor.set(forward.getAsDouble() - reverse.getAsDouble()), rollerSubsystem);
+        () -> algaeRollerMotor.set(forward.getAsDouble() - reverse.getAsDouble()), rollerSubsystem);
   }
 
 }

@@ -31,7 +31,7 @@ public class RobotContainer {
       private final CANRollerSubsystem rollerSubsystem = new CANRollerSubsystem();
     private final ElevatorSubSystems elevatorSubSystems = new ElevatorSubSystems();
     private final PivotSubSystem pivotSubSystem = new PivotSubSystem();
-    private final AlgaeSubSystem algaeSubSystem = new AlgaeSubSystem();
+   // private final AlgaeSubSystem algaeSubSystem = new AlgaeSubSystem();
 
     // The driver's controller
     private final CommandXboxController driverController = new CommandXboxController(
@@ -107,7 +107,7 @@ public class RobotContainer {
 
         elevatorSubSystems.setDefaultCommand(new ElevatorPID(elevatorSubSystems, 0));
         rollerSubsystem.setDefaultCommand(new AutoRoller(rollerSubsystem,0.2));
-        algaeSubSystem.setDefaultCommand(new AlgaePivot(algaeSubSystem, rollerSubsystem, 0, 0.0));//-0.2
+        //algaeSubSystem.setDefaultCommand(new AlgaePivot(algaeSubSystem, rollerSubsystem, 0, 0.0));//-0.2
         pivotSubSystem.setDefaultCommand(new Pivot(pivotSubSystem, -16));
 
 
@@ -130,7 +130,5 @@ public class RobotContainer {
             return autoChooser.getSelected();
 
         }
-
-
     }
 
