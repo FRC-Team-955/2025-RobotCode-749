@@ -126,7 +126,7 @@ public class RobotContainer {
 
 
         elevatorSubSystems.setDefaultCommand(new ElevatorPID(elevatorSubSystems, 0));
-        rollerSubsystem.setDefaultCommand(new AutoRoller(rollerSubsystem,0.2));
+        rollerSubsystem.setDefaultCommand(new AutoRoller(rollerSubsystem,0.15));
         algaeSubSystem.setDefaultCommand(new AlgaePivot(algaeSubSystem, Constants.AlgaeConstants.original));//-0.1
         pivotSubSystem.setDefaultCommand(new Pivot(pivotSubSystem, -16));
         alageRollerSubsystem.setDefaultCommand(new AlageRoller(alageRollerSubsystem, -0.1));

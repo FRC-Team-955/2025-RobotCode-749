@@ -18,7 +18,7 @@ public class Pivot extends Command {
 
     public Pivot(PivotSubSystem pivotSubSystem, double targetDistance) {
         this.pivotSubSystem = pivotSubSystem;
-        this.pidController = new PIDController(0.04,0,0);
+        this.pidController = new PIDController(0.06,0,0);
         this.encoderSetpoint = targetDistance;
         addRequirements(pivotSubSystem);
     }

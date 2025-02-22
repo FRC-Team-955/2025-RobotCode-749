@@ -116,6 +116,6 @@ public class CANDriveSubsystem extends SubsystemBase {
   public Command driveArcade(
       CANDriveSubsystem driveSubsystem, DoubleSupplier xSpeed, DoubleSupplier zRotation) {
     return Commands.run(
-        () -> drive.arcadeDrive(xSpeed.getAsDouble(), zRotation.getAsDouble()), driveSubsystem);
+        () -> drive.arcadeDrive(xSpeed.getAsDouble(), -zRotation.getAsDouble()), driveSubsystem);
   }
 }
