@@ -56,7 +56,7 @@ public class RobotContainer {
         // autoChooser.addOption
         autoChooser.setDefaultOption("Autonomus", new SequentialCommandGroup(
                 new AutoForward(driveSubsystem, Constants.DriveConstants.distance),
-                new Pivot(pivotSubSystem, -19), //FIND NEW TARGET DISTANCE PLS
+                new Pivot(pivotSubSystem, -16), //FIND NEW TARGET DISTANCE PLS
                 new ParallelCommandGroup(
                 new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint),
                         new Pivot(pivotSubSystem,Constants.PivotConstants.lvTwoAndThreeEncoderSetpoint),

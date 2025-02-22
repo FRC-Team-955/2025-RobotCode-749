@@ -50,7 +50,7 @@ public static final class AlgaeConstants{
     public static final int PIVOT_MOTOR_ID = 9;
    // public static final double gearRatio = 1 / 75;
 
-    public static final double lvTwoAndThreeEncoderSetpoint = -8.0; //lv 2 and 3 position
+    public static final double lvTwoAndThreeEncoderSetpoint = -9.0; //lv 2 and 3 position
     //public static final double bottomEncoderSetpoint = -16.0; //intake position
     //public static final double topEncoderSetpoint = -32.0;
 
@@ -68,7 +68,7 @@ public static final class AlgaeConstants{
     public static final int ROLLER_MOTOR_CURRENT_LIMIT = 60;
     public static final double ROLLER_MOTOR_VOLTAGE_COMP = 10;
     public static final double ROLLER_EJECT_VALUE = -0.75; //shooting it out -
-    public static final double ROLLER_SHOOT_VALUE= 0.4; // intakeing it in +
+    public static final double ROLLER_SHOOT_VALUE= 0.2; // intakeing it in +
   }
 
   public static final class OperatorConstants {
