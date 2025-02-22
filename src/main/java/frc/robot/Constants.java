@@ -39,23 +39,29 @@ public final class Constants {
   }
 public static final class AlgaeConstants{
     public static final int Algae_Intake_ID = 10;
-    public static final double gearRatio = 0.0;
-    public static final double encoderSetpoint = 0.16; //intake
-  public static final double original = 0.06; //taken
+    //public static final double gearRatio = 0.0;
+    public static final double encoderSetpoint = 0.23; //intake
+  public static final double original = 0.13; //taken
 //FIND NEW ENCODERSETPOINT FOR ALGAEPIVOT
 }
 
 
   public static final class PivotConstants {
     public static final int PIVOT_MOTOR_ID = 9;
-    public static final double gearRatio = 1 / 75;
+   // public static final double gearRatio = 1 / 75;
 
     public static final double lvTwoAndThreeEncoderSetpoint = -8.0; //lv 2 and 3 position
-    public static final double bottomEncoderSetpoint = -16.0; //intake position
+    //public static final double bottomEncoderSetpoint = -16.0; //intake position
     //public static final double topEncoderSetpoint = -32.0;
 
   }
-
+  public static final class AlageRollerConstants {
+    public static final int ALGAE_ROLLER_MOTOR_ID = 11;
+    public static final int ALAGE_ROLLER_MOTOR_CURRENT_LIMIT = 60;
+    public static final double ALAGE_ROLLER_MOTOR_VOLTAGE_COMP = 10;
+    public static final double ALAGE_ROLLER_INTAKE = -0.5;
+    public static final double AlAGE_ROLLER_SHOOT = 0.5;
+  }
 
   public static final class RollerConstants {
     public static final int ROLLER_MOTOR_ID = 7;
@@ -63,10 +69,6 @@ public static final class AlgaeConstants{
     public static final double ROLLER_MOTOR_VOLTAGE_COMP = 10;
     public static final double ROLLER_EJECT_VALUE = -0.4;
     public static final double ROLLER_SHOOT_VALUE= 0.44;
-    public static final int ALGAE_ROLLER_MOTOR_ID = 11;
-    public static final int ALAGE_ROLLER_MOTOR_CURRENT_LIMIT = 60;
-    public static final double ALAGE_ROLLER_MOTOR_VOLTAGE_COMP = 10;
-    public static final double ALAGE_ROLLER_INTAKE = 0.2;
   }
 
   public static final class OperatorConstants {

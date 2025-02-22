@@ -16,7 +16,7 @@ public class AlgaePivot extends Command {
 
     public AlgaePivot(AlgaeSubSystem algaeSubSystem, double targetDistance) {
         this.algaeSubSystem = algaeSubSystem;
-        this.pidController = new PIDController(0.4, 0.00001, 0.0001);
+        this.pidController = new PIDController(1.5, 0.0, 0.0002);
         this.encoderSetpoint = targetDistance;
         addRequirements(algaeSubSystem);
     }

@@ -23,7 +23,7 @@ public class AlgaeSubSystem extends SubsystemBase {
         SparkBaseConfig config = new SparkMaxConfig();
         config.inverted(true);
         config.idleMode(SparkBaseConfig.IdleMode.kBrake);
-        algaePivot.configure(config, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
+        //algaePivot.configure(config, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
     }
 
 

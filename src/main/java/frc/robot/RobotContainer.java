@@ -32,7 +32,7 @@ public class RobotContainer {
     private final ElevatorSubSystems elevatorSubSystems = new ElevatorSubSystems();
     private final PivotSubSystem pivotSubSystem = new PivotSubSystem();
     private final AlgaeSubSystem algaeSubSystem = new AlgaeSubSystem();
-    //private final AlageRollerSubsystem alageRollerSubsystem = new AlageRollerSubsystem();
+    private final AlageRollerSubsystem alageRollerSubsystem = new AlageRollerSubsystem();
 
     // The driver's controller
     private final CommandXboxController driverController = new CommandXboxController(
@@ -86,23 +86,32 @@ public class RobotContainer {
         operatorController.a().whileTrue(new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE));
         operatorController.b().whileTrue((new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_SHOOT_VALUE)));
 
-       // Delet this//operatorController.x().whileTrue(
-                //Delet this//new AlgaePivot(algaeSubSystem, rollerSubsystem, Constants.RollerConstants.ALAGE_ROLLER_INTAKE, Constants.AlgaeConstants.encoderSetpoint));
+
         operatorController.leftTrigger().toggleOnTrue(
                 new Pivot(pivotSubSystem, Constants.PivotConstants.lvTwoAndThreeEncoderSetpoint));
 
 
-        operatorController.y().toggleOnTrue(
+        /*operatorController.y().toggleOnTrue(
                 new AlgaePivot(algaeSubSystem, Constants.AlgaeConstants.encoderSetpoint));
-       /* operatorController.x().whileTrue(
-                new AlageRoller(alageRollerSubsystem, Constants.RollerConstants.ROLLER_SHOOT_VALUE));*/
+       operatorController.x().whileTrue(
+                new AlageRoller(alageRollerSubsystem, Constants.AlageRollerConstants.ALAGE_ROLLER_INTAKE));*/
+       operatorController.y().toggleOnTrue(Commands.parallel(
+               new AlgaePivot(algaeSubSystem, Constants.AlgaeConstants.encoderSetpoint),
+               new AlageRoller(alageRollerSubsystem, Constants.AlageRollerConstants.ALAGE_ROLLER_INTAKE)));
+        operatorController.x().whileTrue(
+                new AlageRoller(alageRollerSubsystem, Constants.AlageRollerConstants.AlAGE_ROLLER_SHOOT)
+        );
 
 
 
 //       driverController.x().whileTrue(new AlgaePivot(algaeIntakeSubSystem,Constants.AlgaeIntakeConstants.encoderSetpoint));
-//        driverController.rightBumper().toggleOnTrue(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.halfEncoderSetpoint));
+//       driverController.rightBumper().toggleOnTrue(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.halfEncoderSetpoint));
+
         operatorController.rightTrigger().toggleOnTrue(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint));
         operatorController.rightBumper().toggleOnTrue(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.halfEncoderSetpoint));
+
+
+
         // Set the default command for the drive subsystem to the command provided by
         // factory with the values provided by the joystick axes on the driver
         // controller. The Y axis of the controller is inverted so that pushing the
@@ -110,13 +119,24 @@ public class RobotContainer {
         // value)
         driveSubsystem.setDefaultCommand(
                 driveSubsystem.driveArcade(
-                        driveSubsystem, () -> -driverController.getLeftY(), () -> -driverController.getRightX()));
+                        driveSubsystem, () -> -operatorController.getLeftY(), () -> -operatorController.getRightX()));
+
+
+
+
 
         elevatorSubSystems.setDefaultCommand(new ElevatorPID(elevatorSubSystems, 0));
         rollerSubsystem.setDefaultCommand(new AutoRoller(rollerSubsystem,0.2));
         algaeSubSystem.setDefaultCommand(new AlgaePivot(algaeSubSystem, Constants.AlgaeConstants.original));//-0.1
         pivotSubSystem.setDefaultCommand(new Pivot(pivotSubSystem, -16));
-        //alageRollerSubsystem.setDefaultCommand(new AlageRoller(alageRollerSubsystem, 0));
+        alageRollerSubsystem.setDefaultCommand(new AlageRoller(alageRollerSubsystem, -0.1));
+
+        /*lageRollerSubsystem.setDefaultCommand((
+                alageRollerSubsystem.runRoller(
+                alageRollerSubsystem,
+                () -> -operatorController.getLeftY(),
+                () -> -operatorController.getLeftY())
+        ));*/
 
 
         // Set the default command for the roller subsystem to the command from the
