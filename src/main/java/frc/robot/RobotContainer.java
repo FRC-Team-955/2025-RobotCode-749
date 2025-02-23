@@ -52,9 +52,8 @@ public class RobotContainer {
         // add additional auto modes you can add additional lines here with
         // autoChooser.addOption
         autoChooser.setDefaultOption("Autonomus", new SequentialCommandGroup(
-                //new AutoForward(driveSubsystem, Constants.DriveConstants.distance),
+                new AutoForward(driveSubsystem, Constants.DriveConstants.distance),
         new ParallelCommandGroup(
-                new Pivot(pivotSubSystem,Constants.PivotConstants.lvTwoAndThreeEncoderSetpoint),
                 new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint)),
                 new SequentialCommandGroup(new AutoRoller(rollerSubsystem,Constants.RollerConstants.ROLLER_EJECT_VALUE))));
 
@@ -85,8 +84,8 @@ public class RobotContainer {
         operatorController.b().whileTrue((new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_SHOOT_VALUE)));
 
 
-        operatorController.leftTrigger().toggleOnTrue(
-                new Pivot(pivotSubSystem, Constants.PivotConstants.lvTwoAndThreeEncoderSetpoint));
+        operatorController.leftTrigger().whileTrue(
+                new Pivot(pivotSubSystem, Constants.PivotConstants.intakePosition));
         /*operatorController.leftBumper().toggleOnTrue(
                 new Pivot(pivotSubSystem, -8.0)
         );*/
@@ -129,7 +128,7 @@ public class RobotContainer {
         elevatorSubSystems.setDefaultCommand(new ElevatorPID(elevatorSubSystems, 0));
         rollerSubsystem.setDefaultCommand(new AutoRoller(rollerSubsystem,0.15));
         algaeSubSystem.setDefaultCommand(new AlgaePivot(algaeSubSystem, Constants.AlgaeConstants.original));//-0.1
-        pivotSubSystem.setDefaultCommand(new Pivot(pivotSubSystem, -17)); //-16 og
+        pivotSubSystem.setDefaultCommand(new Pivot(pivotSubSystem, Constants.PivotConstants.lvTwoAndThreeEncoderSetpoint)); //-16 og
         alageRollerSubsystem.setDefaultCommand(new AlageRoller(alageRollerSubsystem, -0.1));
 
         /*lageRollerSubsystem.setDefaultCommand((

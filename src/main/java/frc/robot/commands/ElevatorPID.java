@@ -11,7 +11,6 @@ public class ElevatorPID extends Command {
         private final ElevatorSubSystems elevatorSubSystems;
         private final PIDController pidController;
         private final double elevatorEncoderSetpoint;
-
         private double speed;
 
     public ElevatorPID(ElevatorSubSystems elevatorSubSystems, double setPoint) {
