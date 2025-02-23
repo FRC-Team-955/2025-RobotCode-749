@@ -39,6 +39,9 @@ public class Pivot extends Command {
     }
     @Override
     public boolean isFinished() {
-        return  false;
+        if (pivotSubSystem.currentPivotEncoder() >= encoderSetpoint+1.5 ) {
+            return true;
+        }
+        else return false;
     }
 }

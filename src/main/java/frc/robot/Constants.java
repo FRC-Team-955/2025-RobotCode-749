@@ -23,9 +23,11 @@ public final class Constants {
     public static final int RIGHT_LEADER_ID = 3;
     public static final int RIGHT_FOLLOWER_ID = 4;
     public static final double gearRatio = 1 / 8.46;
-    public static final double distance = 84.0;
+    public static final double distance = 70.0; //84 OG
     public static final double wheelDiameter = 6.0;
     public static final double encoderCPR = 42.0;
+    public static final double speedFactor = 1.0;
+    public static final double turningFactor = 0.75;
     public static final double distancePerPulse = (Math.PI * wheelDiameter) / (encoderCPR * gearRatio);
 
     public static final int DRIVE_MOTOR_CURRENT_LIMIT = 60;
@@ -50,7 +52,8 @@ public static final class AlgaeConstants{
     public static final int PIVOT_MOTOR_ID = 9;
    // public static final double gearRatio = 1 / 75;
 
-    public static final double lvTwoAndThreeEncoderSetpoint = -9.0; //lv 2 and 3 position
+    public static final double lvTwoAndThreeEncoderSetpoint = -8.5; //lv 2 and 3 position
+   // public static final double lvTwoAndThreeEncoderSetpoint = -8.0; //lv 2 and 3 position og
     //public static final double bottomEncoderSetpoint = -16.0; //intake position
     //public static final double topEncoderSetpoint = -32.0;
 
@@ -67,7 +70,7 @@ public static final class AlgaeConstants{
     public static final int ROLLER_MOTOR_ID = 7;
     public static final int ROLLER_MOTOR_CURRENT_LIMIT = 60;
     public static final double ROLLER_MOTOR_VOLTAGE_COMP = 10;
-    public static final double ROLLER_EJECT_VALUE = -0.75; //shooting it out -
+    public static final double ROLLER_EJECT_VALUE = -0.85; //-0.75 //shooting it out -
     public static final double ROLLER_SHOOT_VALUE= 0.2; // intakeing it in +
   }
 

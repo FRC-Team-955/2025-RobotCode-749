@@ -95,7 +95,7 @@ public class CANDriveSubsystem extends SubsystemBase {
 
 
   public double currentDistance() {
-    return (-leftEncoder.getPosition() + -rightEncoder.getPosition()) / 2 * DriveConstants.distancePerPulse;
+    return (leftEncoder.getPosition() + rightEncoder.getPosition()) / 2 * DriveConstants.distancePerPulse;
   }
   public double rightCurrentDistance()
   {
@@ -107,8 +107,8 @@ public class CANDriveSubsystem extends SubsystemBase {
 
 
   public void setSpeed(double leftSpeed, double rightSpeed) {
-    leftLeader.set(-leftSpeed);
-    rightLeader.set(-rightSpeed);
+    leftLeader.set(leftSpeed);
+    rightLeader.set(rightSpeed);
   }
 
 

@@ -20,7 +20,7 @@ public class AutoForward extends Command {
         this.driveSubsystem = driveSubsystem;
         //this.pidControllerRight = new PIDController(0.015,0,0);
         //this.pidControllerLeft = new PIDController(0.015, 0, 0);
-        this.pidController = new PIDController(0.005,0,0);
+        this.pidController = new PIDController(0.0025,0,0);
         this.targetDistance = targetDistance;
         addRequirements(driveSubsystem);
     }

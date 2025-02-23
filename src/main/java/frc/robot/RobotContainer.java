@@ -5,10 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.*;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.*;
@@ -55,12 +52,13 @@ public class RobotContainer {
         // add additional auto modes you can add additional lines here with
         // autoChooser.addOption
         autoChooser.setDefaultOption("Autonomus", new SequentialCommandGroup(
-                new AutoForward(driveSubsystem, Constants.DriveConstants.distance),
-                new Pivot(pivotSubSystem, -16), //FIND NEW TARGET DISTANCE PLS
-                new ParallelCommandGroup(
-                new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint),
-                        new Pivot(pivotSubSystem,Constants.PivotConstants.lvTwoAndThreeEncoderSetpoint),
-                new AutoRoller(rollerSubsystem,0.5))));
+                //new AutoForward(driveSubsystem, Constants.DriveConstants.distance),
+        new ParallelCommandGroup(
+                new Pivot(pivotSubSystem,Constants.PivotConstants.lvTwoAndThreeEncoderSetpoint),
+                new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint)),
+                new SequentialCommandGroup(new AutoRoller(rollerSubsystem,Constants.RollerConstants.ROLLER_EJECT_VALUE))));
+
+
         //autoChooser.addOption("Autonomous", Autos.exampleAuto(driveSubsystem));
     }
 
@@ -89,7 +87,9 @@ public class RobotContainer {
 
         operatorController.leftTrigger().toggleOnTrue(
                 new Pivot(pivotSubSystem, Constants.PivotConstants.lvTwoAndThreeEncoderSetpoint));
-
+        /*operatorController.leftBumper().toggleOnTrue(
+                new Pivot(pivotSubSystem, -8.0)
+        );*/
 
         /*operatorController.y().toggleOnTrue(
                 new AlgaePivot(algaeSubSystem, Constants.AlgaeConstants.encoderSetpoint));
@@ -119,7 +119,8 @@ public class RobotContainer {
         // value)
         driveSubsystem.setDefaultCommand(
                 driveSubsystem.driveArcade(
-                        driveSubsystem, () -> -operatorController.getLeftY(), () -> -operatorController.getRightX()));
+                        driveSubsystem, () -> Constants.DriveConstants.speedFactor * -driverController.getLeftY(),
+                        () -> Constants.DriveConstants.turningFactor * -driverController.getRightX()));
 
 
 
@@ -128,7 +129,7 @@ public class RobotContainer {
         elevatorSubSystems.setDefaultCommand(new ElevatorPID(elevatorSubSystems, 0));
         rollerSubsystem.setDefaultCommand(new AutoRoller(rollerSubsystem,0.15));
         algaeSubSystem.setDefaultCommand(new AlgaePivot(algaeSubSystem, Constants.AlgaeConstants.original));//-0.1
-        pivotSubSystem.setDefaultCommand(new Pivot(pivotSubSystem, -16));
+        pivotSubSystem.setDefaultCommand(new Pivot(pivotSubSystem, -17)); //-16 og
         alageRollerSubsystem.setDefaultCommand(new AlageRoller(alageRollerSubsystem, -0.1));
 
         /*lageRollerSubsystem.setDefaultCommand((
