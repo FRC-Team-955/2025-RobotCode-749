@@ -6,20 +6,20 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.CANDriveSubsystem;
 
 // made by justin, command for auto
-public class AutoForward extends Command {
+public class AutoForawrd extends Command {
     private final CANDriveSubsystem driveSubsystem;
     private final double targetDistance;
-    //private final PIDController pidControllerLeft;
+   // private final PIDController pidControllerLeft;
     private final PIDController pidController;
     private double speed;
     //private final PIDController pidControllerRight;
     private double encoderSetpoint;
     private double speedLeft;
     private double speedRight;
-    public AutoForward(CANDriveSubsystem driveSubsystem, double targetDistance) {
+    public AutoForawrd(CANDriveSubsystem driveSubsystem, double targetDistance) {
         this.driveSubsystem = driveSubsystem;
-        //this.pidControllerRight = new PIDController(0.015,0,0);
-        //this.pidControllerLeft = new PIDController(0.015, 0, 0);
+        //this.pidControllerRight = new PIDController(0.0025,0,0);
+        //this.pidControllerLeft = new PIDController(0.0025, 0, 0);
         this.pidController = new PIDController(0.0025,0,0);
         this.targetDistance = targetDistance;
         addRequirements(driveSubsystem);

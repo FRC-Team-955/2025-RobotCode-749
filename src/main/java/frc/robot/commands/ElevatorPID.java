@@ -34,14 +34,11 @@ public class ElevatorPID extends Command {
 
         @Override
         public void end(boolean interrupted) {
-            elevatorSubSystems.setMotorSpeed(0.0);
+            elevatorSubSystems.setMotorSpeed(speed);
         }
         @Override
         public boolean isFinished() {
-            if (elevatorSubSystems.currentElevatorEncoder() >= elevatorEncoderSetpoint-10) {
-                return true;
-            }
-            else
+
                 return false;
         }
     }
