@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.*;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.Constants.OperatorConstants;
@@ -51,10 +52,18 @@ public class RobotContainer {
         // Set the options to show up in the Dashboard for selecting auto modes. If you
         // add additional auto modes you can add additional lines here with
         // autoChooser.addOption
+        SmartDashboard.putData(autoChooser);
         autoChooser.setDefaultOption("Autonomus", new SequentialCommandGroup(
                 new AutoForward(driveSubsystem, Constants.DriveConstants.distance),
         new ParallelCommandGroup(
                 new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint)),
+                new SequentialCommandGroup(new AutoRoller(rollerSubsystem,Constants.RollerConstants.ROLLER_EJECT_VALUE))));
+
+        autoChooser.addOption("Autonomus but with turn", new SequentialCommandGroup(
+                new AutoForward(driveSubsystem, Constants.DriveConstants.distance),
+                AutoTurn.autoTurn(driveSubsystem,-0.25),
+                new ParallelCommandGroup(
+                        new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint)),
                 new SequentialCommandGroup(new AutoRoller(rollerSubsystem,Constants.RollerConstants.ROLLER_EJECT_VALUE))));
 
 
@@ -86,14 +95,6 @@ public class RobotContainer {
 
         operatorController.leftTrigger().whileTrue(
                 new Pivot(pivotSubSystem, Constants.PivotConstants.intakePosition));
-        /*operatorController.leftBumper().toggleOnTrue(
-                new Pivot(pivotSubSystem, -8.0)
-        );*/
-
-        /*operatorController.y().toggleOnTrue(
-                new AlgaePivot(algaeSubSystem, Constants.AlgaeConstants.encoderSetpoint));
-       operatorController.x().whileTrue(
-                new AlageRoller(alageRollerSubsystem, Constants.AlageRollerConstants.ALAGE_ROLLER_INTAKE));*/
        operatorController.y().toggleOnTrue(Commands.parallel(
                new AlgaePivot(algaeSubSystem, Constants.AlgaeConstants.encoderSetpoint),
                new AlageRoller(alageRollerSubsystem, Constants.AlageRollerConstants.ALAGE_ROLLER_INTAKE)));
