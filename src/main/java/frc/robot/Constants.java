@@ -55,7 +55,7 @@ public static final class AlgaeConstants{
    // public static final double gearRatio = 1 / 75;
     public static final double intakePosition = -17;
     public static final double lvTwoAndThreeEncoderSetpoint = -8.5; //lv 2 and 3 position
-    public static final double intakePosition = -17.0;
+    //public static final double intakePosition = -17.0;
    // public static final double lvTwoAndThreeEncoderSetpoint = -8.0; //lv 2 and 3 position og
     //public static final double bottomEncoderSetpoint = -16.0; //intake position
     //public static final double topEncoderSetpoint = -32.0;
