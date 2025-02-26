@@ -15,11 +15,11 @@ public class AprilTag extends Command {
     // Autonomous state variables and timer
     private RobotState autostate;
     private final Timer autotimer;
-    private int tagid;
+    private long tagid;
     private boolean tagL;
 
     // Reference to the drive subsystem (assumed to have an arcadeDrive method and sensor access)
-    private final DriveSubsystem drive;
+    private final CANDriveSubsystem drive;
 
     // Example threshold for encoder velocity (adjust as necessary)
     private double thresh = 0.5;
@@ -29,15 +29,17 @@ public class AprilTag extends Command {
     private double[] targetpose = NetworkTableInstance.getDefault()
             .getTable("limelight")
             .getEntry("targetpose_robotspace")
-            .getDoubleArray(new double[0]);
+            .getDoubleArray(new double[6]);
     // 'tx' reading (assumed to be updated periodically; you may need to refresh these values in execute)
     private double tx = NetworkTableInstance.getDefault()
             .getTable("limelight")
             .getEntry("tx")
             .getDouble(0);
     // 'tz' reading from which we compute the absolute value as within_sonic_range.
-    private double within_sonic_range = Math.abs(NetworkTableInstance.getDefault().getTable("limelight").getEntry("tz").getDouble(0)) < 1.5;
-
+    private double within_sonic_range =  NetworkTableInstance.getDefault()
+            .getTable("limelight")
+            .getEntry("ty")
+            .getDouble(0);
     public AprilTag(CANDriveSubsystem drive) {
         this.drive = drive;
         addRequirements(drive);
@@ -83,46 +85,46 @@ public class AprilTag extends Command {
             } else {
                 double timerValue = autotimer.get();
                 if (timerValue < 1) {
-                    drive.arcadeDrive(0.5, 0);
+                    drive.driveArcade(drive,() -> 0.5, () -> 0.0);
                 } else if (timerValue < 1.5) {
-                    drive.arcadeDrive(0, -0.35);
+                    drive.driveArcade(drive, () -> 0, () -> -0.35);
                 } else if (timerValue < 2) {
-                    drive.arcadeDrive(0, 0);
+                    drive.driveArcade(drive,() ->0, () ->0);
                 } else if (timerValue < 2.5) {
-                    drive.arcadeDrive(0, -0.35);
+                    drive.driveArcade(drive,() ->0, () ->-0.35);
                 } else if (timerValue < 3) {
-                    drive.arcadeDrive(0, 0);
+                    drive.driveArcade(drive,() ->0, () ->0);
                 } else if (timerValue < 3.5) {
-                    drive.arcadeDrive(0, -0.35);
+                    drive.driveArcade(drive, () ->0, () ->-0.35);
                 } else {
-                    drive.arcadeDrive(0, 0);
+                    drive.driveArcade(drive, () -> 0, () -> 0);
                 }
             }
         } else if (autostate == RobotState.APPROACH) {
             SmartDashboard.putString("State", "Approach");
-            drive.arcadeDrive(0, 0);
+            drive.driveArcade(drive, () ->0, () ->0);
             boolean leftSet = false;
             boolean rightSet = false;
 
             // Replace these calls with your actual sensor methods from your drive subsystem.
-            if (Math.abs(drive.getLeftEncoderVelocity()) > thresh) {
-                drive.setLeftLeader(0.1);
+            if (Math.abs(drive.leftCurrentVelo()) > thresh) {
+                drive.setSpeed(0.1, 0);
             } else {
                 leftSet = true;
-                drive.setLeftLeader(0);
+                drive.setSpeed(0, 0);
             }
 
-            if (Math.abs(drive.getRightEncoderVelocity()) > thresh) {
-                drive.setRightLeader(0.1);
+            if (Math.abs(drive.rightCurrentVelo()) > thresh) {
+                drive.setSpeed(0, 0.1);
             } else {
                 rightSet = true;
-                drive.setRightLeader(0);
+                drive.setSpeed(0, 0);
             }
 
             // Conveyor control code was commented out in your original snippet.
         } else if (autostate == RobotState.FORWARD) {
             SmartDashboard.putString("State", "Forward");
-            drive.arcadeDrive(0.4, 0);
+            drive.driveArcade(drive, () ->0.4, () ->0);
             if (target_found) {
                 tagL = (tx < 0);
                 // Transition condition – adjust the check on within_sonic_range as needed.
@@ -135,9 +137,9 @@ public class AprilTag extends Command {
         } else if (autostate == RobotState.ROTATELR) {
             SmartDashboard.putString("State", "Rotation");
             if (tagL) {
-                drive.arcadeDrive(0, -0.25);
+                drive.driveArcade(drive, () ->0, () ->-0.25);
             } else {
-                drive.arcadeDrive(0, 0.25);
+                drive.driveArcade(drive, () ->0,() -> 0.25);
             }
             if (target_found) {
                 autostate = RobotState.CENTERPID;
@@ -155,7 +157,7 @@ public class AprilTag extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        drive.arcadeDrive(0, 0);
+        drive.driveArcade(drive, () ->0,() -> 0);
     }
 
     @Override

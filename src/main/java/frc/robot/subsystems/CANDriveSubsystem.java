@@ -36,8 +36,6 @@ public class CANDriveSubsystem extends SubsystemBase {
 
   private final DifferentialDrive drive;
 
-  private final TargetPose targetpose;
-
   public CANDriveSubsystem() {
     // create brushless motors for drive
     leftLeader = new SparkMax(DriveConstants.LEFT_LEADER_ID, MotorType.kBrushless);
@@ -95,7 +93,6 @@ public class CANDriveSubsystem extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("leftCurrentDistance", leftCurrentDistance());
     SmartDashboard.putNumber("rightCurrentDistance", rightCurrentDistance());
-    SmartDashboard.putNumber("Limelight Network Tables", NetworkTables());
   }
 
 
@@ -110,7 +107,12 @@ public class CANDriveSubsystem extends SubsystemBase {
     return -leftEncoder.getPosition() * DriveConstants.distancePerPulse;
   }
 
-
+  public double rightCurrentVelo()
+  {
+    return rightEncoder.getVelocity();}
+  public double leftCurrentVelo()
+  {
+    return leftEncoder.getVelocity();}
 
   public void setSpeed(double leftSpeed, double rightSpeed) {
     leftLeader.set(leftSpeed);
