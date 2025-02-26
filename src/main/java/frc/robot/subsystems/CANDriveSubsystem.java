@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class CANDriveSubsystem extends SubsystemBase {
   private final SparkMax leftLeader;
@@ -35,6 +36,8 @@ public class CANDriveSubsystem extends SubsystemBase {
 
   private final DifferentialDrive drive;
 
+  private final TargetPose targetpose;
+
   public CANDriveSubsystem() {
     // create brushless motors for drive
     leftLeader = new SparkMax(DriveConstants.LEFT_LEADER_ID, MotorType.kBrushless);
@@ -44,10 +47,11 @@ public class CANDriveSubsystem extends SubsystemBase {
     leftEncoder = leftLeader.getEncoder();
     rightEncoder = rightLeader.getEncoder();
 
-
+    // Limelight Targetpose
 
     // set up differential drive class
     drive = new DifferentialDrive(leftLeader, rightLeader);
+    
 
     // Set can timeout. Because this project only sets parameters once on
     // construction, the timeout can be long without blocking robot operation. Code
@@ -91,6 +95,7 @@ public class CANDriveSubsystem extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("leftCurrentDistance", leftCurrentDistance());
     SmartDashboard.putNumber("rightCurrentDistance", rightCurrentDistance());
+    SmartDashboard.putNumber("Limelight Network Tables", NetworkTables());
   }
 
 
@@ -104,6 +109,7 @@ public class CANDriveSubsystem extends SubsystemBase {
   {
     return -leftEncoder.getPosition() * DriveConstants.distancePerPulse;
   }
+
 
 
   public void setSpeed(double leftSpeed, double rightSpeed) {

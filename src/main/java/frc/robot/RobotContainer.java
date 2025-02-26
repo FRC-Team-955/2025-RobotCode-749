@@ -66,6 +66,8 @@ public class RobotContainer {
                         new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint)),
                 new SequentialCommandGroup(
                         new AutoRoller(rollerSubsystem,Constants.RollerConstants.ROLLER_EJECT_VALUE))));
+        autoChooser.addOption("AprilTag Test", new SequentialCommandGroup(new AprilTag(driveSubsystem)
+));
     }
 
     /**
@@ -107,6 +109,9 @@ public class RobotContainer {
         operatorController.x().whileTrue(
                 new AlageRoller(alageRollerSubsystem, Constants.AlageRollerConstants.AlAGE_ROLLER_SHOOT)
         );
+        operatorController.leftBumper().whileTrue(Commands.parallel(
+
+        ));
 
 
 
@@ -165,5 +170,6 @@ public class RobotContainer {
             return autoChooser.getSelected();
 
         }
+        
     }
 
