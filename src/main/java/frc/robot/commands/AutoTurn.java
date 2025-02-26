@@ -20,8 +20,8 @@ public class AutoTurn extends Command {
     private double speedRight;
     public AutoTurn(CANDriveSubsystem driveSubsystem, double targetDistanceLeft, double targetDistanceRight) {
         this.driveSubsystem = driveSubsystem;
-        this.pidControllerRight = new PIDController(0.0025,0,0);
-        this.pidControllerLeft = new PIDController(0.0025, 0, 0);
+        this.pidControllerRight = new PIDController(0.003,0,0);
+        this.pidControllerLeft = new PIDController(0.003, 0, 0);
         //this.pidController = new PIDController(0.0025,0,0);
         this.targetDistanceRight = targetDistanceRight;
         this.targetDistanceLeft = targetDistanceLeft;
@@ -61,7 +61,8 @@ public class AutoTurn extends Command {
     }
     @Override
     public boolean isFinished() {
-        if (driveSubsystem.rightCurrentDistance() >= encoderSetpointRight && driveSubsystem.leftCurrentDistance() >= encoderSetpointLeft) {
+        if (driveSubsystem.rightCurrentDistance() >= encoderSetpointRight &&
+                driveSubsystem.leftCurrentDistance() >= encoderSetpointLeft) {
             return true;
         }
         else

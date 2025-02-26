@@ -23,20 +23,21 @@ public final class Constants {
     public static final int RIGHT_LEADER_ID = 3;
     public static final int RIGHT_FOLLOWER_ID = 4;
     public static final double gearRatio = 1 / 8.46;
-    public static final double distance = 72.0; //84 OG //70.0 Old auto
+    public static final double distance = 72.0;//84 OG //70.0 Old auto
+    public static final double backDistance = 7.0;
     public static final double wheelDiameter = 6.0;
     public static final double encoderCPR = 42.0;
     public static final double speedFactor = 1.0;
     public static final double turningFactor = 0.75;
     public static final double distancePerPulse = (Math.PI * wheelDiameter) / (encoderCPR * gearRatio);
-    public static final double rightTurn = 10;
-    public static final double leftTurn = -10;
+    public static final double rightTurn = 20;
+    public static final double leftTurn = -20;
 
     public static final int DRIVE_MOTOR_CURRENT_LIMIT = 60;
   }
   public static final class ElevatorConstants {
     public static final int ElEVATOR_MOTOR_ID = 12;
-
+    public static final double Orginal = 0;
     //public static final double gearRatio =  1 / 20;
     public static final double encoderSetpoint = 110; // lvel three 110 //112 is the top if 0 is the bottom
     public static final double halfEncoderSetpoint = 37; // level two
