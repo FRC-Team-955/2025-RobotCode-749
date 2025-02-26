@@ -133,7 +133,12 @@ public class RobotContainer {
                         driveSubsystem, () -> Constants.DriveConstants.speedFactor * -operatorController.getLeftY(),
                         () -> Constants.DriveConstants.turningFactor * -operatorController.getRightX()));
 
-
+        driveSubsystem.setDefaultCommand(
+                driveSubsystem.ArcadeDrive(
+                        driveSubsystem, ()-> Constants.DriveConstants.speedFactor,
+                        () -> Constants.DriveConstants.turningFactor
+                )
+        );
 
 
 

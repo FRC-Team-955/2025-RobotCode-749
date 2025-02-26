@@ -85,24 +85,24 @@ public class AprilTag extends Command {
             } else {
                 double timerValue = autotimer.get();
                 if (timerValue < 1) {
-                    drive.driveArcade(drive,() -> 0.5, () -> 0.0);
+                    drive.ArcadeDrive(drive,() -> 0.5, () -> 0.0) ;
                 } else if (timerValue < 1.5) {
-                    drive.driveArcade(drive, () -> 0, () -> -0.35);
+                    drive.ArcadeDrive(drive, () -> 0, () -> -0.35);
                 } else if (timerValue < 2) {
-                    drive.driveArcade(drive,() ->0, () ->0);
+                    drive.ArcadeDrive(drive,() ->0, () ->0);
                 } else if (timerValue < 2.5) {
-                    drive.driveArcade(drive,() ->0, () ->-0.35);
+                    drive.ArcadeDrive(drive,() ->0, () ->-0.35);
                 } else if (timerValue < 3) {
-                    drive.driveArcade(drive,() ->0, () ->0);
+                    drive.ArcadeDrive(drive,() ->0, () ->0);
                 } else if (timerValue < 3.5) {
-                    drive.driveArcade(drive, () ->0, () ->-0.35);
+                    drive.ArcadeDrive(drive, () ->0, () ->-0.35);
                 } else {
-                    drive.driveArcade(drive, () -> 0, () -> 0);
+                    drive.ArcadeDrive(drive, () -> 0, () -> 0);
                 }
             }
         } else if (autostate == RobotState.APPROACH) {
             SmartDashboard.putString("State", "Approach");
-            drive.driveArcade(drive, () ->0, () ->0);
+            drive.ArcadeDrive(drive, () ->0, () ->0);
             boolean leftSet = false;
             boolean rightSet = false;
 
@@ -124,7 +124,7 @@ public class AprilTag extends Command {
             // Conveyor control code was commented out in your original snippet.
         } else if (autostate == RobotState.FORWARD) {
             SmartDashboard.putString("State", "Forward");
-            drive.driveArcade(drive, () ->0.4, () ->0);
+            drive.ArcadeDrive(drive, () ->0.4, () ->0);
             if (target_found) {
                 tagL = (tx < 0);
                 // Transition condition – adjust the check on within_sonic_range as needed.
@@ -137,9 +137,9 @@ public class AprilTag extends Command {
         } else if (autostate == RobotState.ROTATELR) {
             SmartDashboard.putString("State", "Rotation");
             if (tagL) {
-                drive.driveArcade(drive, () ->0, () ->-0.25);
+                drive.ArcadeDrive(drive, () ->0, () ->-0.25);
             } else {
-                drive.driveArcade(drive, () ->0,() -> 0.25);
+                drive.ArcadeDrive(drive, () ->0,() -> 0.25);
             }
             if (target_found) {
                 autostate = RobotState.CENTERPID;
@@ -157,7 +157,7 @@ public class AprilTag extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        drive.driveArcade(drive, () ->0,() -> 0);
+        drive.ArcadeDrive(drive, () ->0,() -> 0);
     }
 
     @Override
