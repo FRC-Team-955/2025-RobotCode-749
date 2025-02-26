@@ -62,7 +62,7 @@ public class RobotContainer {
                 new SequentialCommandGroup(
                         new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE)))));*/
 
-        autoChooser.addOption("AutonomousTurnthenFoward", new SequentialCommandGroup(
+        autoChooser.addOption("Turnandgo", new SequentialCommandGroup(
                 new AutoTurn(driveSubsystem, Constants.DriveConstants.leftTurn, Constants.DriveConstants.rightTurn),
                 new AutoForawrd(driveSubsystem, Constants.DriveConstants.distance),
                 new ParallelCommandGroup(
@@ -78,16 +78,19 @@ public class RobotContainer {
                 //new SequentialCommandGroup(
                         //new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE))));*/
 
-        autoChooser.addOption("OG(WORK)", new SequentialCommandGroup(
+        autoChooser.addOption("(WORK)", new SequentialCommandGroup(
                 new AutoForawrd(driveSubsystem, Constants.DriveConstants.distance),
                 new ParallelCommandGroup(
                                 new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE))));
 
-        autoChooser.addOption("FowardandBackward(IDK)", new SequentialCommandGroup(
+        autoChooser.addOption("BackFo(IDK)", new SequentialCommandGroup(
                 new AutoForawrd(driveSubsystem, Constants.DriveConstants.distance),
-                new ParallelCommandGroup(
-                        new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE))));
-        new AutoForawrd(driveSubsystem, Constants.DriveConstants.backDistance);
+                        new ParallelCommandGroup(
+                        new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE),
+                        new SequentialCommandGroup(
+                        new AutoForawrd(driveSubsystem, Constants.DriveConstants.backDistance)))));
+        //new ParallelCommandGroup(
+        //new AutoForawrd(driveSubsystem, Constants.DriveConstants.backDistance))));
         //new AutoTurn(driveSubsystem, Constants.DriveConstants.leftTurn, Constants.DriveConstants.rightTurn);
     }
 
@@ -138,7 +141,7 @@ public class RobotContainer {
 
         operatorController.rightTrigger().toggleOnTrue(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.Orginal));
         operatorController.rightBumper().toggleOnTrue(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.halfEncoderSetpoint));
-
+        operatorController.leftBumper().toggleOnTrue(new AutoRoller(rollerSubsystem, 0.15));
 
 
         // Set the default command for the drive subsystem to the command provided by
@@ -156,7 +159,7 @@ public class RobotContainer {
 
 
         elevatorSubSystems.setDefaultCommand(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint));
-        rollerSubsystem.setDefaultCommand(new AutoRoller(rollerSubsystem,0.15));
+        //rollerSubsystem.setDefaultCommand(new AutoRoller(rollerSubsystem,0));
         algaeSubSystem.setDefaultCommand(new AlgaePivot(algaeSubSystem, Constants.AlgaeConstants.original));//-0.1
         pivotSubSystem.setDefaultCommand(new Pivot(pivotSubSystem, Constants.PivotConstants.lvTwoAndThreeEncoderSetpoint)); //-16 og
         alageRollerSubsystem.setDefaultCommand(new AlageRoller(alageRollerSubsystem, -0.1));
