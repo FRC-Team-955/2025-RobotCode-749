@@ -23,6 +23,7 @@ public class AprilTag extends Command {
 
     // Example threshold for encoder velocity (adjust as necessary)
     private double thresh = 0.5;
+    private double SonicRangeDistance = 1.5;
 
     // Variables used in state logic, initialized from NetworkTables.
     // For a double array value, use getDoubleArray(...) with an empty default array.
@@ -36,10 +37,11 @@ public class AprilTag extends Command {
             .getEntry("tx")
             .getDouble(0);
     // 'tz' reading from which we compute the absolute value as within_sonic_range.
-    private double within_sonic_range =  NetworkTableInstance.getDefault()
+    private double ty = NetworkTableInstance.getDefault()
             .getTable("limelight")
             .getEntry("ty")
             .getDouble(0);
+    private boolean within_sonic_range;
     public AprilTag(CANDriveSubsystem drive) {
         this.drive = drive;
         addRequirements(drive);
@@ -66,10 +68,11 @@ public class AprilTag extends Command {
                 .getTable("limelight")
                 .getEntry("tx")
                 .getDouble(0);
-        within_sonic_range = Math.abs(NetworkTableInstance.getDefault()
+        ty = NetworkTableInstance.getDefault()
                 .getTable("limelight")
-                .getEntry("tz")
-                .getDouble(0));
+                .getEntry("ty")
+                .getDouble(0);
+        within_sonic_range = Math.abs(ty) > SonicRangeDistance;
 
         // Determine if a valid target is found (make sure targetpose has at least 3 elements)
         boolean target_found = (targetpose != null && targetpose.length > 2 && targetpose[2] != 0);
@@ -128,7 +131,7 @@ public class AprilTag extends Command {
             if (target_found) {
                 tagL = (tx < 0);
                 // Transition condition – adjust the check on within_sonic_range as needed.
-                if (within_sonic_range > 0) {
+                if (within_sonic_range != true) {
                     autostate = RobotState.CENTERPID;
                 }
             } else {
