@@ -88,7 +88,7 @@ public class RobotContainer {
                 new ParallelCommandGroup(
                         new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE))));
         new AutoForawrd(driveSubsystem, Constants.DriveConstants.backDistance);
-        new AutoTurn(driveSubsystem, Constants.DriveConstants.leftTurn, Constants.DriveConstants.rightTurn);
+        //new AutoTurn(driveSubsystem, Constants.DriveConstants.leftTurn, Constants.DriveConstants.rightTurn);
     }
 
     /**
