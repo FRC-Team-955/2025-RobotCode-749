@@ -6,6 +6,6 @@ import frc.robot.subsystems.CANDriveSubsystem;
 public final class AutoTurn {
   // Example autonomous command which drives forward for 1 second.
   public static final Command autoTurn(CANDriveSubsystem driveSubsystem, double turnValue) {
-    return driveSubsystem.driveArcade(driveSubsystem, () -> 0.0, () -> turnValue).withTimeout(1.0);
+    return driveSubsystem.driveArcade(driveSubsystem, () -> 0.0, () -> turnValue).withTimeout(2.0);
   }
 }

@@ -31,6 +31,8 @@ public class RobotContainer {
     private final PivotSubSystem pivotSubSystem = new PivotSubSystem();
     private final AlgaeSubSystem algaeSubSystem = new AlgaeSubSystem();
     private final AlageRollerSubsystem alageRollerSubsystem = new AlageRollerSubsystem();
+    //private final VisionSubsystem visionSubsystem = new VisionSubsystem();
+    private final Limelight limelight = new Limelight();
 
     // The driver's controller
     private final CommandXboxController driverController = new CommandXboxController(
@@ -66,7 +68,7 @@ public class RobotContainer {
                         new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint)),
                 new SequentialCommandGroup(new AutoRoller(rollerSubsystem,Constants.RollerConstants.ROLLER_EJECT_VALUE))));
 
-
+        //autoChooser.addOption("AprilTag Test", new SequentialCommandGroup(new AprilTag(driveSubsystem, visionSubsystem, visionSubsystem.getTargetDistance())));
         //autoChooser.addOption("Autonomous", Autos.exampleAuto(driveSubsystem));
     }
 
@@ -91,6 +93,8 @@ public class RobotContainer {
 //            .whileTrue(rollerSubsystem.runRoller(rollerSubsystem, () -> Constants.RollerConstants.ROLLER_EJECT_VALUE, () -> 0));
         operatorController.a().whileTrue(new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE));
         operatorController.b().whileTrue((new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_SHOOT_VALUE)));
+        driverController.leftBumper().onTrue(new AutoAlign(limelight, driveSubsystem, 22,23));
+
 
 
         operatorController.leftTrigger().whileTrue(
@@ -119,8 +123,9 @@ public class RobotContainer {
         // value)
         driveSubsystem.setDefaultCommand(
                 driveSubsystem.driveArcade(
-                        driveSubsystem, () -> Constants.DriveConstants.speedFactor * -driverController.getLeftY(),
-                        () -> Constants.DriveConstants.turningFactor * -driverController.getRightX()));
+                        driveSubsystem, () -> Constants.DriveConstants.speedFactor * -operatorController.getLeftY(),
+                        () -> Constants.DriveConstants.turningFactor * -operatorController.getRightX()));
+
 
 
 

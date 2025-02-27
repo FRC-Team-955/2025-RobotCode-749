@@ -23,7 +23,7 @@ public final class Constants {
     public static final int RIGHT_LEADER_ID = 3;
     public static final int RIGHT_FOLLOWER_ID = 4;
     public static final double gearRatio = 1 / 8.46;
-    public static final double distance = 72.5; //84 OG
+    public static final double distance = 72.0; //84 OG
     public static final double wheelDiameter = 6.0;
     public static final double encoderCPR = 42.0;
     public static final double speedFactor = 1.0;
