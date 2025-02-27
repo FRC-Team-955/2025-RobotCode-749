@@ -27,8 +27,8 @@ public final class Constants {
     public static final double backDistance = -22.0;
     public static final double wheelDiameter = 6.0;
     public static final double encoderCPR = 42.0;
-    public static final double speedFactor = 1.0;
-    public static final double turningFactor = 0.75;
+    public static final double speedFactor = 0.5;
+    public static final double turningFactor = 0.6;
     public static final double distancePerPulse = (Math.PI * wheelDiameter) / (encoderCPR * gearRatio);
     public static final double rightTurn = 20;
     public static final double leftTurn = -20;
@@ -39,7 +39,7 @@ public final class Constants {
     public static final int ElEVATOR_MOTOR_ID = 12;
     public static final double Orginal = 0;
     //public static final double gearRatio =  1 / 20;
-    public static final double encoderSetpoint = 110; // lvel three 110 //112 is the top if 0 is the bottom
+    public static final double encoderSetpoint = 110.2; // lvel three 110 //112 is the top if 0 is the bottom
     public static final double halfEncoderSetpoint = 37; // level two
   }
 public static final class AlgaeConstants{
@@ -55,7 +55,7 @@ public static final class AlgaeConstants{
     public static final int PIVOT_MOTOR_ID = 9;
    // public static final double gearRatio = 1 / 75;
     public static final double intakePosition = -17;
-    public static final double lvTwoAndThreeEncoderSetpoint = -8.5; //lv 2 and 3 position
+    public static final double lvTwoAndThreeEncoderSetpoint = -8.0;//-8.5 //lv 2 and 3 position
     //public static final double intakePosition = -17.0;
    // public static final double lvTwoAndThreeEncoderSetpoint = -8.0; //lv 2 and 3 position og
     //public static final double bottomEncoderSetpoint = -16.0; //intake position
@@ -76,7 +76,7 @@ public static final class AlgaeConstants{
     public static final double ROLLER_MOTOR_VOLTAGE_COMP = 10;
     public static final double ROLLER_EJECT_VALUE = -0.85; //-0.75 //shooting it out -
     public static final double Autonomuse_ROLLER_EJECT_VALUE = -0.21;
-    public static final double ROLLER_SHOOT_VALUE= 0.2; // intakeing it in +
+    public static final double ROLLER_SHOOT_VALUE= 0.5; // intakeing it in +
   }
 
   public static final class OperatorConstants {

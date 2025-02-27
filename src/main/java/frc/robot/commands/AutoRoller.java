@@ -8,15 +8,15 @@ import frc.robot.subsystems.CANRollerSubsystem;
 public class AutoRoller extends Command {
     private final CANRollerSubsystem rollerSubsystem;
     private double inOrOut;
-    private final Timer autotimer;
+    //private final Timer autotimer;
     private double TimerValuel;
 
     public AutoRoller(CANRollerSubsystem rollerSubsystem, double inOrOut) {
         this.rollerSubsystem = rollerSubsystem;
         this.inOrOut = inOrOut;
-        autotimer = new Timer();
+        //autotimer = new Timer();
         //this.TimerValuel = autotimer.get();
-        autotimer.reset();
+        //autotimer.reset();
         addRequirements(rollerSubsystem);
     }
     @Override
@@ -25,8 +25,8 @@ public class AutoRoller extends Command {
     @Override
     public void execute() {
         rollerSubsystem.setRollerMotor(inOrOut);
-        autotimer.start();
-        this.TimerValuel = autotimer.get();
+        //autotimer.start();
+        //this.TimerValuel = autotimer.get();
     }
 
     @Override
@@ -35,7 +35,7 @@ public class AutoRoller extends Command {
     }
     @Override
     public boolean isFinished() {
-        return true;
+        return false;
     }
 
     /*{if (TimerValuel >= 3) {
