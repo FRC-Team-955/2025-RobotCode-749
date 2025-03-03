@@ -27,7 +27,6 @@ public class CANRollerSubsystem extends SubsystemBase {
     // construction, the timeout can be long without blocking robot operation. Code
     // which sets or gets parameters during operation may need a shorter timeout.
     rollerMotor.setCANTimeout(250);
-
     // Create and apply configuration for roller motor. Voltage compensation helps
     // the roller behave the same as the battery
     // voltage dips. The current limit helps prevent breaker trips or burning out
@@ -41,10 +40,9 @@ public class CANRollerSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
   }
-  public void setRollerMotor(double speed){
-    rollerMotor.set(speed);
+  public void setRollerMotor(double speed2){
+    rollerMotor.set(speed2);
   }
-
 
   // Command to run the roller with joystick inputs
   public Command runRoller(
