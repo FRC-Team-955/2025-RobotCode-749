@@ -28,9 +28,10 @@ public class RobotContainer {
     private final CANDriveSubsystem driveSubsystem = new CANDriveSubsystem();
       private final CANRollerSubsystem rollerSubsystem = new CANRollerSubsystem();
     private final ElevatorSubSystems elevatorSubSystems = new ElevatorSubSystems();
-    private final PivotSubSystem pivotSubSystem = new PivotSubSystem();
+    //private final PivotSubSystem pivotSubSystem = new PivotSubSystem();
     private final AlgaeSubSystem algaeSubSystem = new AlgaeSubSystem();
     private final AlageRollerSubsystem alageRollerSubsystem = new AlageRollerSubsystem();
+    private final PivotEncoderSubSystem pivotEncoderSubSystem = new PivotEncoderSubSystem();
 
     // The driver's controller
     private final CommandXboxController driverController = new CommandXboxController(
@@ -56,6 +57,12 @@ public class RobotContainer {
                 new AutoForawrd(driveSubsystem, Constants.DriveConstants.distance),
                 new ParallelCommandGroup(
                         new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE))));
+        /*autoChooser.addOption("ForwardAboEncoder(Idk)", new SequentialCommandGroup(
+                new AutoForawrd(driveSubsystem, Constants.DriveConstants.distance),
+                new ParallelCommandGroup(
+                        new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE))));*/
+
+
                /* new AutoForawrd(driveSubsystem, Constants.DriveConstants.distance),
         new ParallelCommandGroup(
                 new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint),
@@ -117,8 +124,21 @@ public class RobotContainer {
         operatorController.b().whileTrue((new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_SHOOT_VALUE)));
 
 
-        operatorController.leftTrigger().toggleOnTrue(
-                new Pivot(pivotSubSystem, Constants.PivotConstants.intakePosition));
+        /*operatorController.leftTrigger().toggleOnTrue(
+                new Pivot(pivotSubSystem, Constants.PivotConstants.intakePosition));*/
+       operatorController.leftTrigger().toggleOnTrue(
+                new PivotEncoder(pivotEncoderSubSystem, Constants.EncoderPivot.intakePosition)
+        );
+
+       /*operatorController.leftBumper().toggleOnTrue(
+               Commands.parallel(
+                       new AlgaePivot(algaeSubSystem, Constants.AlgaeConstants.newEncoderSetpoint),
+                       new AlageRoller(alageRollerSubsystem, Constants.AlageRollerConstants.ALAGE_ROLLER_INTAKE)
+               )
+       );*/
+        //Abo encoder
+
+
         /*operatorController.leftBumper().toggleOnTrue(
                 new Pivot(pivotSubSystem, -8.0)
         );*/
@@ -161,8 +181,15 @@ public class RobotContainer {
         elevatorSubSystems.setDefaultCommand(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint));
         rollerSubsystem.setDefaultCommand(new AutoRoller(rollerSubsystem,0.2));
         algaeSubSystem.setDefaultCommand(new AlgaePivot(algaeSubSystem, Constants.AlgaeConstants.original));//-0.1
-        pivotSubSystem.setDefaultCommand(new Pivot(pivotSubSystem, Constants.PivotConstants.lvTwoAndThreeEncoderSetpoint)); //-16 og
+       // pivotSubSystem.setDefaultCommand(new Pivot(pivotSubSystem, Constants.PivotConstants.lvTwoAndThreeEncoderSetpoint)); //-16 og
         alageRollerSubsystem.setDefaultCommand(new AlageRoller(alageRollerSubsystem, -0.1));
+        pivotEncoderSubSystem.setDefaultCommand(new PivotEncoder(pivotEncoderSubSystem,
+                Constants.EncoderPivot.lv2a3Position));
+        //new abos idk value
+        //Abo encoder
+        //pivotEncoderSubSystem.setDefaultCommand(new PivotEncoder(pivotEncoderSubSystem, 0.0));
+
+
 
         /*lageRollerSubsystem.setDefaultCommand((
                 alageRollerSubsystem.runRoller(

@@ -29,6 +29,7 @@ public class ElevatorSubSystems  extends SubsystemBase {
 
         elevatorEncoder = elevator.getEncoder();
         SparkBaseConfig config= new SparkMaxConfig();
+        config.smartCurrentLimit(Constants.DriveConstants.DRIVE_MOTOR_CURRENT_LIMIT);
         config.idleMode(SparkBaseConfig.IdleMode.kBrake);
         config.inverted(true);
         elevator.configure(config, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);

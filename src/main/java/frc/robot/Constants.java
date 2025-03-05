@@ -27,17 +27,17 @@ public final class Constants {
     public static final double backDistance = -22.0;
     public static final double wheelDiameter = 6.0;
     public static final double encoderCPR = 42.0;
-    public static final double speedFactor = 0.5;
-    public static final double turningFactor = 0.6;
+    public static final double speedFactor = 1.0; //0.7 for mark
+    public static final double turningFactor = 0.6; //0.6 for mark
     public static final double distancePerPulse = (Math.PI * wheelDiameter) / (encoderCPR * gearRatio);
     public static final double rightTurn = 20;
     public static final double leftTurn = -20;
 
-    public static final int DRIVE_MOTOR_CURRENT_LIMIT = 60;
+    public static final int DRIVE_MOTOR_CURRENT_LIMIT = 35;
   }
   public static final class ElevatorConstants {
     public static final int ElEVATOR_MOTOR_ID = 12;
-    public static final double Orginal = 0;
+    public static final double Orginal = 1;
     //public static final double gearRatio =  1 / 20;
     public static final double encoderSetpoint = 110.2; // lvel three 110 //112 is the top if 0 is the bottom
     public static final double halfEncoderSetpoint = 37; // level two
@@ -45,7 +45,8 @@ public final class Constants {
 public static final class AlgaeConstants{
     public static final int Algae_Intake_ID = 10;
     //public static final double gearRatio = 0.0;
-    public static final double encoderSetpoint = 0.215; //intake
+    public static final double encoderSetpoint = 0.215;//intake 0.215
+  public static final double newEncoderSetpoint = 0.22;//intake v2
   public static final double original = 0.13; //taken
 //FIND NEW ENCODERSETPOINT FOR ALGAEPIVOT
 }
@@ -66,7 +67,7 @@ public static final class AlgaeConstants{
     public static final int ALGAE_ROLLER_MOTOR_ID = 11;
     public static final int ALAGE_ROLLER_MOTOR_CURRENT_LIMIT = 60;
     public static final double ALAGE_ROLLER_MOTOR_VOLTAGE_COMP = 10;
-    public static final double ALAGE_ROLLER_INTAKE = -1.0;
+    public static final double ALAGE_ROLLER_INTAKE = -0.75;
     public static final double AlAGE_ROLLER_SHOOT = 1.0;
   }
 
@@ -77,6 +78,12 @@ public static final class AlgaeConstants{
     public static final double ROLLER_EJECT_VALUE = -0.85; //-0.75 //shooting it out -
     public static final double Autonomuse_ROLLER_EJECT_VALUE = -0.21;
     public static final double ROLLER_SHOOT_VALUE= 0.5; // intakeing it in +
+  }
+  public static final class EncoderPivot {
+    public static final int PIVOT_MOTOR_ID = 9;
+    public static final double intakePosition = 0.2;
+    public static final double lv2a3Position = 0.3;
+    public static final double breakingPosition = 0.4;
   }
 
   public static final class OperatorConstants {
