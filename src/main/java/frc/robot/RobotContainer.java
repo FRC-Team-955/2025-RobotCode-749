@@ -33,6 +33,8 @@ public class RobotContainer {
     private final AlageRollerSubsystem alageRollerSubsystem = new AlageRollerSubsystem();
     private final PivotEncoderSubSystem pivotEncoderSubSystem = new PivotEncoderSubSystem();
     private final zClimberSubsystem climberSubsystem = new zClimberSubsystem();
+
+
     // The driver's controller
     private final CommandXboxController driverController = new CommandXboxController(
             OperatorConstants.DRIVER_CONTROLLER_PORT);
@@ -184,13 +186,11 @@ public class RobotContainer {
         elevatorSubSystems.setDefaultCommand(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint));
         rollerSubsystem.setDefaultCommand(new AutoRoller(rollerSubsystem,0.2));
         algaeSubSystem.setDefaultCommand(new AlgaePivot(algaeSubSystem, Constants.AlgaeConstants.original));//-0.1
-       // pivotSubSystem.setDefaultCommand(new Pivot(pivotSubSystem, Constants.PivotConstants.lvTwoAndThreeEncoderSetpoint)); //-16 og
+      // pivotSubSystem.setDefaultCommand(new Pivot(pivotSubSystem, Constants.PivotConstants.lvTwoAndThreeEncoderSetpoint)); //-16 og
         alageRollerSubsystem.setDefaultCommand(new AlageRoller(alageRollerSubsystem, -0.1));
         pivotEncoderSubSystem.setDefaultCommand(new PivotEncoder(pivotEncoderSubSystem,
                 Constants.EncoderPivot.lv2a3Position));
-        //new abos idk value
-        //Abo encoder
-        //pivotEncoderSubSystem.setDefaultCommand(new PivotEncoder(pivotEncoderSubSystem, 0.0));
+
 
 
 

@@ -21,7 +21,7 @@ public class AlgaeSubSystem extends SubsystemBase {
       // algaePivotEncoder = algaePivot.getAbsoluteEncoder();
        encoder = new DutyCycleEncoder(2);
         SparkBaseConfig config = new SparkMaxConfig();
-        config.inverted(true);
+        config.inverted(false);
         config.smartCurrentLimit(Constants.DriveConstants.DRIVE_MOTOR_CURRENT_LIMIT);
         config.idleMode(SparkBaseConfig.IdleMode.kCoast);
         algaePivot.configure(config, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
