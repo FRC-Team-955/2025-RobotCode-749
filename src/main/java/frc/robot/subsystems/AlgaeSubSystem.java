@@ -23,7 +23,7 @@ public class AlgaeSubSystem extends SubsystemBase {
         SparkBaseConfig config = new SparkMaxConfig();
         config.inverted(true);
         config.smartCurrentLimit(Constants.DriveConstants.DRIVE_MOTOR_CURRENT_LIMIT);
-        config.idleMode(SparkBaseConfig.IdleMode.kBrake);
+        config.idleMode(SparkBaseConfig.IdleMode.kCoast);
         algaePivot.configure(config, SparkBase.ResetMode.kResetSafeParameters, SparkBase.PersistMode.kPersistParameters);
     }
 
@@ -36,7 +36,7 @@ public class AlgaeSubSystem extends SubsystemBase {
     @Override
     public void periodic() {
         //SmartDashboard.putNumber("currentAlgaePivotEncoder", currentAlgaePivotEncoder());
-        SmartDashboard.putNumber("Encoder", currentEncoderPivotPosition());
+        SmartDashboard.putNumber("AlgaePivotEncoder", currentEncoderPivotPosition());
     }
     public double currentEncoderPivotPosition() {
         return encoder.get();

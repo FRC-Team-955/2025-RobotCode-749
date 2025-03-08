@@ -32,7 +32,7 @@ public class RobotContainer {
     private final AlgaeSubSystem algaeSubSystem = new AlgaeSubSystem();
     private final AlageRollerSubsystem alageRollerSubsystem = new AlageRollerSubsystem();
     private final PivotEncoderSubSystem pivotEncoderSubSystem = new PivotEncoderSubSystem();
-
+    private final zClimberSubsystem climberSubsystem = new zClimberSubsystem();
     // The driver's controller
     private final CommandXboxController driverController = new CommandXboxController(
             OperatorConstants.DRIVER_CONTROLLER_PORT);
@@ -123,6 +123,10 @@ public class RobotContainer {
         operatorController.a().whileTrue(new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE));
         operatorController.b().whileTrue((new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_SHOOT_VALUE)));
 
+        operatorController.povLeft().whileTrue(new Climber(climberSubsystem, 1));
+        operatorController.povLeft().whileFalse(new Climber(climberSubsystem, 0));
+        operatorController.povRight().whileTrue(new Climber(climberSubsystem, -1));
+        operatorController.povRight().whileFalse(new Climber(climberSubsystem, 0));
 
         /*operatorController.leftTrigger().toggleOnTrue(
                 new Pivot(pivotSubSystem, Constants.PivotConstants.intakePosition));*/
@@ -173,7 +177,6 @@ public class RobotContainer {
                 driveSubsystem.driveArcade(
                         driveSubsystem, () -> Constants.DriveConstants.speedFactor * -operatorController.getLeftY(),
                         () -> Constants.DriveConstants.turningFactor * -operatorController.getRightX()));
-
 
 
 

@@ -35,6 +35,11 @@ public final class Constants {
 
     public static final int DRIVE_MOTOR_CURRENT_LIMIT = 35;
   }
+  public static final class ClimberConstants {
+    public static final boolean inverted = true;
+    public static final double ECDSP = 12;
+  }
+
   public static final class ElevatorConstants {
     public static final int ElEVATOR_MOTOR_ID = 12;
     public static final double Orginal = 1;
@@ -45,9 +50,9 @@ public final class Constants {
 public static final class AlgaeConstants{
     public static final int Algae_Intake_ID = 10;
     //public static final double gearRatio = 0.0;
-    public static final double encoderSetpoint = 0.215;//intake 0.215
+    public static final double encoderSetpoint = 0.8;//intake 0.215
   public static final double newEncoderSetpoint = 0.22;//intake v2
-  public static final double original = 0.13; //taken
+  public static final double original = 0.9; //taken 0.13
 //FIND NEW ENCODERSETPOINT FOR ALGAEPIVOT
 }
 
