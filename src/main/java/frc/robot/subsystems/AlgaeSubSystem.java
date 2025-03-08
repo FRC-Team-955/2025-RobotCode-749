@@ -37,6 +37,7 @@ public class AlgaeSubSystem extends SubsystemBase {
     public void periodic() {
         //SmartDashboard.putNumber("currentAlgaePivotEncoder", currentAlgaePivotEncoder());
         SmartDashboard.putNumber("AlgaePivotEncoder", currentEncoderPivotPosition());
+        SmartDashboard.putNumber("AlgaePivotSetpoint", Constants.AlgaeConstants.encoderSetpoint);
     }
     public double currentEncoderPivotPosition() {
         return encoder.get();

@@ -56,6 +56,8 @@ public class ElevatorSubSystems  extends SubsystemBase {
     @Override
     public void periodic() {
         SmartDashboard.putNumber("currentElevatorEncoder", currentElevatorEncoder());
+        SmartDashboard.putNumber("ElevatorHalfSetpoint", Constants.ElevatorConstants.halfEncoderSetpoint);
+        SmartDashboard.putNumber("ElevatorMaxSetpoint", Constants.ElevatorConstants.encoderSetpoint);
         SmartDashboard.putNumber("ElevatorVoltage", elevator.getAppliedOutput() * elevator.getBusVoltage());
         SmartDashboard.putBoolean("Toplimit", topLimitSwitch.get());
         SmartDashboard.putBoolean("bottomlimit", bottomLimitSwitch.get());

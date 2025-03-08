@@ -35,6 +35,8 @@ public class PivotEncoderSubSystem extends SubsystemBase {
     @Override
     public void periodic() {
         SmartDashboard.putNumber("pivotEncoder", currentEncoderPivotPosition());
+        SmartDashboard.putNumber("IntakeSetPoint", Constants.EncoderPivot.intakePosition);
+        SmartDashboard.putNumber("2,3LvSetPoint", Constants.EncoderPivot.lv2a3Position);
     }
     public double currentEncoderPivotPosition() {
         return encoder.get();

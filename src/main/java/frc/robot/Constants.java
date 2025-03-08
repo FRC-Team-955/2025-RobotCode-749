@@ -88,7 +88,7 @@ public static final class AlgaeConstants{
     public static final int PIVOT_MOTOR_ID = 9;
     public static final double intakePosition = 0.2;
     public static final double lv2a3Position = 0.3;
-    public static final double breakingPosition = 0.4;
+    //public static final double breakingPosition = 0.4;
   }
 
   public static final class OperatorConstants {
