@@ -4,15 +4,39 @@
 
 package frc.robot;
 
+import java.util.function.BooleanSupplier;
+
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.*;
-import edu.wpi.first.wpilibj2.command.button.*;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.*;
-import frc.robot.subsystems.*;
-
-import java.util.function.BooleanSupplier;
+import frc.robot.commands.AlageRoller;
+import frc.robot.commands.AlgaePivot;
+import frc.robot.commands.AutoAlign;
+import frc.robot.commands.AutoBack;
+import frc.robot.commands.AutoForawrd;
+import frc.robot.commands.AutoRIght;
+import frc.robot.commands.AutoRoller;
+import frc.robot.commands.Autos;
+import frc.robot.commands.Climber;
+import frc.robot.commands.ElevatorPID;
+import frc.robot.commands.PivotEncoder;
+import frc.robot.subsystems.AlageRollerSubsystem;
+import frc.robot.subsystems.AlgaeSubSystem;
+import frc.robot.subsystems.CANDriveSubsystem;
+import frc.robot.subsystems.CANRollerSubsystem;
+import frc.robot.subsystems.ElevatorSubSystems;
+import frc.robot.subsystems.PivotEncoderSubSystem;
+import frc.robot.subsystems.zClimberSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -98,6 +122,15 @@ public class RobotContainer {
                         new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE),
                         new SequentialCommandGroup(
                                 AutoBack.exampleAuto(driveSubsystem)))));
+
+        autoChooser.addOption("AutoAlign", new SequentialCommandGroup(new AutoAlign(driveSubsystem)));
+                autoChooser.addOption("AutoAlign with score", new SequentialCommandGroup(new AutoAlign(driveSubsystem),
+                new WaitCommand(8),
+                new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint),
+                new WaitCommand(5), 
+                new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE)));
+                
+       
         //new ParallelCommandGroup(
         //new AutoForawrd(driveSubsystem, Constants.DriveConstants.backDistance))));
         //new AutoTurn(driveSubsystem, Constants.DriveConstants.leftTurn, Constants.DriveConstants.rightTurn);
@@ -167,6 +200,7 @@ public class RobotContainer {
 
         operatorController.rightTrigger().toggleOnTrue(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.Orginal));
         operatorController.rightBumper().toggleOnTrue(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.halfEncoderSetpoint));
+        operatorController.leftBumper().toggleOnTrue(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint));
        // operatorController.leftBumper().toggleOnTrue(new AutoRoller(rollerSubsystem, 0.15));
 
 
@@ -183,8 +217,8 @@ public class RobotContainer {
 
 
 
-        elevatorSubSystems.setDefaultCommand(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint));
-        rollerSubsystem.setDefaultCommand(new AutoRoller(rollerSubsystem,0.2));
+        // elevatorSubSystems.setDefaultCommand(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint));
+        // rollerSubsystem.setDefaultCommand(new AutoRoller(rollerSubsystem,0.2));
         algaeSubSystem.setDefaultCommand(new AlgaePivot(algaeSubSystem, Constants.AlgaeConstants.original));//-0.1
       // pivotSubSystem.setDefaultCommand(new Pivot(pivotSubSystem, Constants.PivotConstants.lvTwoAndThreeEncoderSetpoint)); //-16 og
         alageRollerSubsystem.setDefaultCommand(new AlageRoller(alageRollerSubsystem, -0.1));
