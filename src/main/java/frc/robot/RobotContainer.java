@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
@@ -124,11 +123,9 @@ public class RobotContainer {
                                 AutoBack.exampleAuto(driveSubsystem)))));
 
         autoChooser.addOption("AutoAlign", new SequentialCommandGroup(new AutoAlign(driveSubsystem)));
-                autoChooser.addOption("AutoAlign with score", new SequentialCommandGroup(new AutoAlign(driveSubsystem),
-                new WaitCommand(8),
-                new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint),
-                new WaitCommand(5), 
-                new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE)));
+                autoChooser.addOption("AutoAlign with score", new ParallelCommandGroup(new AutoAlign(driveSubsystem),
+                new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint), 
+                new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE).withTimeout(3)));
                 
        
         //new ParallelCommandGroup(
