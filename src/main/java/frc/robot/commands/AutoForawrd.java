@@ -14,8 +14,6 @@ public class AutoForawrd extends Command {
     private double speed;
     //private final PIDController pidControllerRight;
     private double encoderSetpoint;
-    private double speedLeft;
-    private double speedRight;
     public AutoForawrd(CANDriveSubsystem driveSubsystem, double targetDistance) {
         this.driveSubsystem = driveSubsystem;
         //this.pidControllerRight = new PIDController(0.0025,0,0);
@@ -54,10 +52,6 @@ public class AutoForawrd extends Command {
     }
     @Override
     public boolean isFinished() {
-        if (driveSubsystem.currentDistance() >= encoderSetpoint ) {
-            return true;
-        }
-        else
-            return false;
+        return driveSubsystem.currentDistance() >= encoderSetpoint;
     }
 }

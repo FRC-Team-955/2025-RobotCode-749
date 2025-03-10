@@ -123,9 +123,13 @@ public class RobotContainer {
                                 AutoBack.exampleAuto(driveSubsystem)))));
 
         autoChooser.addOption("AutoAlign", new SequentialCommandGroup(new AutoAlign(driveSubsystem)));
-                autoChooser.addOption("AutoAlign with score", new ParallelCommandGroup(new AutoAlign(driveSubsystem),
-                new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint), 
-                new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE).withTimeout(3)));
+                autoChooser.addOption("AutoAlign with score",
+                new SequentialCommandGroup(
+                        new AutoAlign(driveSubsystem),
+                        new ParallelCommandGroup(
+                                new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint), 
+                                new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE)
+                                .withTimeout(4))));
                 
        
         //new ParallelCommandGroup(

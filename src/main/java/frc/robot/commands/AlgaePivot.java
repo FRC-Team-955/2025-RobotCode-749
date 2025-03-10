@@ -3,13 +3,11 @@ package frc.robot.commands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-
 import frc.robot.subsystems.AlgaeSubSystem;
-import frc.robot.subsystems.CANRollerSubsystem;
 
 public class AlgaePivot extends Command {
     private final AlgaeSubSystem algaeSubSystem;
-    private double encoderSetpoint;
+    private final double encoderSetpoint;
     private final PIDController pidController;
     private double speed;
 
