@@ -61,11 +61,7 @@ public class AutoTurn extends Command {
     }
     @Override
     public boolean isFinished() {
-        if (driveSubsystem.rightCurrentDistance() >= encoderSetpointRight &&
-                driveSubsystem.leftCurrentDistance() >= encoderSetpointLeft) {
-            return true;
-        }
-        else
-            return false;
+        return driveSubsystem.rightCurrentDistance() >= encoderSetpointRight &&
+                driveSubsystem.leftCurrentDistance() >= encoderSetpointLeft;
     }
 }

@@ -5,7 +5,7 @@ import frc.robot.subsystems.AlageRollerSubsystem;
 
 public class AlageRoller extends Command {
     private final AlageRollerSubsystem alageRollerSubsystem;
-    private double alageRollerSpeed;
+    private final double alageRollerSpeed;
 
     public AlageRoller(AlageRollerSubsystem alageRollerSubsystem, double alageRollerSpeed) {
         this.alageRollerSubsystem = alageRollerSubsystem;

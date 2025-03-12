@@ -7,7 +7,7 @@ import frc.robot.subsystems.zClimberSubsystem;
 public class Climber extends Command {
     private final zClimberSubsystem climberSubsystem;
     private double encoderSetpoint;
-    private double speed;
+    private final double speed;
 
 
     public Climber(zClimberSubsystem climberSubsystem, double speed) {
