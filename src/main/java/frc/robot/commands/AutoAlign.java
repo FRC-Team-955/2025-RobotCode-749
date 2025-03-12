@@ -39,7 +39,7 @@ public class AutoAlign extends Command {
         double tx = NetworkTableInstance.getDefault()
                 .getTable("limelight-right")
                 .getEntry("tx")
-                .getDouble(0.0); // Get horizontal offset
+                .getDouble(0.0) - 0.47; // Get horizontal offset
 
         boolean hasTarget = (NetworkTableInstance.getDefault()
                 .getTable("limelight-right")
@@ -83,7 +83,7 @@ public class AutoAlign extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        drivetrain.driveArcade(drivetrain, () -> 0, () -> 0.2).withTimeout(1.0);
+        drivetrain.driveArcade(drivetrain, () -> 0, () -> 0.2).withTimeout(1.5);
         System.out.println("AutoAlign Finished - Target lost.");
     }
 }

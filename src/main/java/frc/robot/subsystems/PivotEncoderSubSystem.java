@@ -5,6 +5,7 @@ import com.revrobotics.spark.SparkLowLevel;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
+
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -41,6 +42,7 @@ public class PivotEncoderSubSystem extends SubsystemBase {
     public double currentEncoderPivotPosition() {
         return encoder.get();
     }
+
 
     /*public double currentAlgaePivotEncoder() {
         return algaePivotEncoder.getPosition();

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
@@ -123,13 +124,33 @@ public class RobotContainer {
                                 AutoBack.exampleAuto(driveSubsystem)))));
 
         autoChooser.addOption("AutoAlign", new SequentialCommandGroup(new AutoAlign(driveSubsystem)));
-                autoChooser.addOption("AutoAlign with score",
+                
+        autoChooser.addOption("AutoAlign with score",
                 new SequentialCommandGroup(
                         new AutoAlign(driveSubsystem),
                         new ParallelCommandGroup(
-                                new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint), 
-                                new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE)
-                                .withTimeout(4))));
+                                new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint).withTimeout(3), 
+                                new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE))));
+
+        autoChooser.addOption("AutoAlign with two score",
+                new SequentialCommandGroup(
+                        new AutoAlign(driveSubsystem),
+                        new ParallelCommandGroup(
+                                new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint).withTimeout(2).andThen(
+                                new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE).withTimeout(1.5)), 
+                                        new SequentialCommandGroup(
+                                                AutoBack.exampleAuto(driveSubsystem),
+                                                AutoRIght.exampleAuto(driveSubsystem),
+                                                new ParallelCommandGroup(
+                                                        new PivotEncoder(pivotEncoderSubSystem, Constants.PivotConstants.intakePosition).andThen(
+                                                        new AutoAlign(driveSubsystem)),
+                                                                new SequentialCommandGroup(
+                                                                        new WaitCommand(2),
+                                                                        AutoBack.exampleAuto(driveSubsystem),
+                                                                        Autos.exampleAuto(driveSubsystem),
+                                                                        new AutoAlign(driveSubsystem),
+                                                                        new PivotEncoder(pivotEncoderSubSystem, Constants.PivotConstants.lvTwoAndThreeEncoderSetpoint).andThen(
+                                                                        new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE))))))));
                 
        
         //new ParallelCommandGroup(
@@ -168,6 +189,9 @@ public class RobotContainer {
                 new Pivot(pivotSubSystem, Constants.PivotConstants.intakePosition));*/
        operatorController.leftTrigger().toggleOnTrue(
                 new PivotEncoder(pivotEncoderSubSystem, Constants.EncoderPivot.intakePosition)
+        );
+        operatorController.povUp().toggleOnTrue(
+                new AutoAlign(driveSubsystem)
         );
 
        /*operatorController.leftBumper().toggleOnTrue(

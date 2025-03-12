@@ -6,8 +6,8 @@ import com.revrobotics.spark.SparkLowLevel;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
+
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -67,10 +67,10 @@ public class ElevatorSubSystems  extends SubsystemBase {
             elevatorEncoder.setPosition(0);
             hasZeroed = true;
         }
-        SmartDashboard.putBoolean("HasZeroed", hasZeroed);
+        // SmartDashboard.putBoolean("HasZeroed", hasZeroed);
 
         if (!hasZeroed) {
-            DriverStation.reportError("Elevator not zeroed!", false);
+            // DriverStation.reportError("Elevator not zeroed!", false);
         }
     }
     public double currentElevatorEncoder() {
