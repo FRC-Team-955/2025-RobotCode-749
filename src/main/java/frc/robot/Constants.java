@@ -72,7 +72,7 @@ public static final class AlgaeConstants{
     public static final int ALGAE_ROLLER_MOTOR_ID = 11;
     public static final int ALAGE_ROLLER_MOTOR_CURRENT_LIMIT = 60;
     public static final double ALAGE_ROLLER_MOTOR_VOLTAGE_COMP = 10;
-    public static final double ALAGE_ROLLER_INTAKE = -0.75;
+    public static final double ALAGE_ROLLER_INTAKE = -0.9;
     public static final double AlAGE_ROLLER_SHOOT = 1.0;
   }
 

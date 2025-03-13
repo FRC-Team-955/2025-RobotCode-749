@@ -10,9 +10,9 @@ public class AutoAlign extends Command {
     private final PIDController turnPID;
     
     // PID Gains - Tune these for best results
-    private static final double kP = 0.007;  // Proportional gain
+    private static final double kP = 0.0085;  // Proportional gain
     private static final double kI = 0.0;   // Integral gain
-    private static final double kD = 0.001; // Derivative gain
+    private static final double kD = 0.0025; // Derivative gain
     
     private static final double TX_TOLERANCE = 2; // Degrees, acceptable alignment error
     private static final double FORWARD_SPEED = 0.3; // Forward drive speed after aligning
@@ -39,7 +39,7 @@ public class AutoAlign extends Command {
         double tx = NetworkTableInstance.getDefault()
                 .getTable("limelight-right")
                 .getEntry("tx")
-                .getDouble(0.0) - 0.47; // Get horizontal offset
+                .getDouble(0.0) ; // Get horizontal offset
 
         boolean hasTarget = (NetworkTableInstance.getDefault()
                 .getTable("limelight-right")
@@ -54,7 +54,7 @@ public class AutoAlign extends Command {
 
         if (!aligned) {
             // **PHASE 1: ALIGNMENT**
-            double turnSpeed = turnPID.calculate(tx, 0); // PID controller output
+            double turnSpeed = turnPID.calculate(tx - 0.47, 0); // PID controller output
             turnSpeed = Math.max(-0.5, Math.min(0.5, turnSpeed)); // Clamp speed
 
             drivetrain.setSpeed(turnSpeed, -turnSpeed); // Rotate in place

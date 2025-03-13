@@ -126,31 +126,31 @@ public class RobotContainer {
         autoChooser.addOption("AutoAlign", new SequentialCommandGroup(new AutoAlign(driveSubsystem)));
                 
         autoChooser.addOption("AutoAlign with score",
-                new SequentialCommandGroup(
-                        new AutoAlign(driveSubsystem),
-                        new ParallelCommandGroup(
-                                new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint).withTimeout(3), 
-                                new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE))));
+        new SequentialCommandGroup(
+                new AutoAlign(driveSubsystem),
+                new ParallelCommandGroup(
+                        new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint).withTimeout(1.5).andThen(
+                        new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE).withTimeout(1.5)))));
 
         autoChooser.addOption("AutoAlign with two score",
                 new SequentialCommandGroup(
                         new AutoAlign(driveSubsystem),
                         new ParallelCommandGroup(
                                 new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint).withTimeout(2).andThen(
-                                new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE).withTimeout(1.5)), 
+                                new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE).withTimeout(1.5))), 
                                         new SequentialCommandGroup(
                                                 AutoBack.exampleAuto(driveSubsystem),
                                                 AutoRIght.exampleAuto(driveSubsystem),
                                                 new ParallelCommandGroup(
                                                         new PivotEncoder(pivotEncoderSubSystem, Constants.PivotConstants.intakePosition).andThen(
-                                                        new AutoAlign(driveSubsystem)),
+                                                        new AutoAlign(driveSubsystem))),
                                                                 new SequentialCommandGroup(
                                                                         new WaitCommand(2),
                                                                         AutoBack.exampleAuto(driveSubsystem),
                                                                         Autos.exampleAuto(driveSubsystem),
                                                                         new AutoAlign(driveSubsystem),
                                                                         new PivotEncoder(pivotEncoderSubSystem, Constants.PivotConstants.lvTwoAndThreeEncoderSetpoint).andThen(
-                                                                        new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE))))))));
+                                                                        new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE))))));
                 
        
         //new ParallelCommandGroup(
@@ -178,7 +178,9 @@ public class RobotContainer {
 //    operatorController.a()
 //            .whileTrue(rollerSubsystem.runRoller(rollerSubsystem, () -> Constants.RollerConstants.ROLLER_EJECT_VALUE, () -> 0));
         operatorController.a().whileTrue(new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE));
+        // operatorController.a().whileFalse(new AutoRoller(rollerSubsystem, 0));
         operatorController.b().whileTrue((new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_SHOOT_VALUE)));
+        // operatorController.b().whileFalse(new AutoRoller(rollerSubsystem, 0));
 
         operatorController.povLeft().whileTrue(new Climber(climberSubsystem, 1));
         operatorController.povLeft().whileFalse(new Climber(climberSubsystem, 0));
@@ -242,8 +244,8 @@ public class RobotContainer {
 
 
 
-        // elevatorSubSystems.setDefaultCommand(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint));
-        // rollerSubsystem.setDefaultCommand(new AutoRoller(rollerSubsystem,0.2));
+        elevatorSubSystems.setDefaultCommand(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint));
+        rollerSubsystem.setDefaultCommand(new AutoRoller(rollerSubsystem,0.2));
         algaeSubSystem.setDefaultCommand(new AlgaePivot(algaeSubSystem, Constants.AlgaeConstants.original));//-0.1
       // pivotSubSystem.setDefaultCommand(new Pivot(pivotSubSystem, Constants.PivotConstants.lvTwoAndThreeEncoderSetpoint)); //-16 og
         alageRollerSubsystem.setDefaultCommand(new AlageRoller(alageRollerSubsystem, -0.1));

@@ -6,6 +6,6 @@ import frc.robot.subsystems.CANDriveSubsystem;
 public final class AutoBack {
   // Example autonomous command which drives forward for 1 second.
   public static final Command exampleAuto(CANDriveSubsystem driveSubsystem) {
-    return driveSubsystem.driveArcade(driveSubsystem, () -> -0.30, () -> 0.0).withTimeout(2);
+    return driveSubsystem.driveArcade(driveSubsystem, () -> -0.30, () -> 0.0).withTimeout(3.0);
   }
 }
