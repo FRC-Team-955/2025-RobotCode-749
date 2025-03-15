@@ -246,7 +246,7 @@ public class RobotContainer {
                         driveSubsystem, () -> Constants.DriveConstants.speedFactor * -operatorController.getLeftY(),
                         () -> Constants.DriveConstants.turningFactor * -operatorController.getRightX()));
 
-        elevatorSubSystems.setDefaultCommand(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint));
+        elevatorSubSystems.setDefaultCommand(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.Orginal));
         rollerSubsystem.setDefaultCommand(new AutoRoller(rollerSubsystem, 0.2));
         algaeSubSystem.setDefaultCommand(new AlgaePivot(algaeSubSystem, Constants.AlgaeConstants.original));//-0.1
         // pivotSubSystem.setDefaultCommand(new Pivot(pivotSubSystem, Constants.PivotConstants.lvTwoAndThreeEncoderSetpoint)); //-16 og
