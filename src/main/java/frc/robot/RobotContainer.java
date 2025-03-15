@@ -125,7 +125,7 @@ public class RobotContainer {
 
         autoChooser.addOption("Forward,TurnLeft,Align",
                 new SequentialCommandGroup(
-                        new AutoForawrd(driveSubsystem, Constants.DriveConstants.distance * 1.5),
+                        new AutoForawrd(driveSubsystem, Constants.DriveConstants.distance ),
                         AutoRIght.exampleAuto(driveSubsystem),
                         new AutoAlign(driveSubsystem),
                         new ParallelCommandGroup(
@@ -134,7 +134,7 @@ public class RobotContainer {
 
         autoChooser.addOption("Forward,TurnRight,Align",
                 new SequentialCommandGroup(
-                        new AutoForawrd(driveSubsystem, Constants.DriveConstants.distance * 1.5),
+                        new AutoForawrd(driveSubsystem, Constants.DriveConstants.distance),
                         Autos.exampleAuto(driveSubsystem),
                         new AutoAlign(driveSubsystem),
                         new ParallelCommandGroup(
