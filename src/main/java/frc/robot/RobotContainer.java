@@ -129,7 +129,7 @@ public class RobotContainer {
                         AutoRIght.exampleAuto(driveSubsystem),
                         new AutoAlign(driveSubsystem),
                         new ParallelCommandGroup(
-                                new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint).withTimeout(1.5).andThen(
+                                new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.halfEncoderSetpoint).withTimeout(1.5).andThen(
                                         new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE).withTimeout(1.5)))));
 
         autoChooser.addOption("Forward,TurnRight,Align",
@@ -138,7 +138,7 @@ public class RobotContainer {
                         Autos.exampleAuto(driveSubsystem),
                         new AutoAlign(driveSubsystem),
                         new ParallelCommandGroup(
-                                new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint).withTimeout(1.5).andThen(
+                                new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.halfEncoderSetpoint).withTimeout(1.5).andThen(
                                         new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE).withTimeout(1.5)))));
 
         autoChooser.addOption("AutoAlign with score",
