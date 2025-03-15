@@ -123,7 +123,7 @@ public class RobotContainer {
 
         autoChooser.addOption("AutoAlign", new SequentialCommandGroup(new AutoAlign(driveSubsystem)));
 
-        autoChooser.addOption("Forward,TurnLeft,Align",
+        autoChooser.addOption("AUTON_JI",
                 new SequentialCommandGroup(
                         new AutoForawrd(driveSubsystem, Constants.DriveConstants.distance ),
                         AutoRIght.exampleAuto(driveSubsystem),
@@ -132,7 +132,7 @@ public class RobotContainer {
                                 new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.halfEncoderSetpoint).withTimeout(1.5).andThen(
                                         new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE).withTimeout(1.5)))));
 
-        autoChooser.addOption("Forward,TurnRight,Align",
+        autoChooser.addOption("AUTON_EF",
                 new SequentialCommandGroup(
                         new AutoForawrd(driveSubsystem, Constants.DriveConstants.distance),
                         Autos.exampleAuto(driveSubsystem),
