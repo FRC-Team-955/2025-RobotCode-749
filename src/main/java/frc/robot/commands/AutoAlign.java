@@ -10,7 +10,7 @@ public class AutoAlign extends Command {
     private final PIDController turnPID;
     
     // PID Gains - Tune these for best results
-    private static final double kP = 0.0085;  // Proportional gain
+    private static final double kP = 0.0087;  // Proportional gain
     private static final double kI = 0.0;   // Integral gain
     private static final double kD = 0.0025; // Derivative gain
     
