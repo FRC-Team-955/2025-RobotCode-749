@@ -27,8 +27,8 @@ public final class Constants {
     public static final double backDistance = -22.0;
     public static final double wheelDiameter = 6.0;
     public static final double encoderCPR = 42.0;
-    public static final double speedFactor = 1.0; //0.7 for mark
-    public static final double turningFactor = 0.6; //0.6 for mark
+    public static final double speedFactor = 0.2; //0.7 for mark
+    public static final double turningFactor = 0.25; //0.6 for mark
     public static final double distancePerPulse = (Math.PI * wheelDiameter) / (encoderCPR * gearRatio);
     public static final double rightTurn = 20;
     public static final double leftTurn = -20;
@@ -72,8 +72,8 @@ public static final class AlgaeConstants{
     public static final int ALGAE_ROLLER_MOTOR_ID = 11;
     public static final int ALAGE_ROLLER_MOTOR_CURRENT_LIMIT = 60;
     public static final double ALAGE_ROLLER_MOTOR_VOLTAGE_COMP = 10;
-    public static final double ALAGE_ROLLER_INTAKE = -0.75;
-    public static final double AlAGE_ROLLER_SHOOT = 1.0;
+    public static final double ALAGE_ROLLER_INTAKE = -0.25;
+    public static final double AlAGE_ROLLER_SHOOT = 0.2;
   }
 
   public static final class RollerConstants {
