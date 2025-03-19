@@ -18,17 +18,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.AlageRoller;
-import frc.robot.commands.AlgaePivot;
-import frc.robot.commands.AutoAlign;
-import frc.robot.commands.AutoBack;
-import frc.robot.commands.AutoForawrd;
-import frc.robot.commands.AutoRIght;
-import frc.robot.commands.AutoRoller;
-import frc.robot.commands.Autos;
-import frc.robot.commands.Climber;
-import frc.robot.commands.ElevatorPID;
-import frc.robot.commands.PivotEncoder;
+import frc.robot.commands.*;
 import frc.robot.subsystems.AlageRollerSubsystem;
 import frc.robot.subsystems.AlgaeSubSystem;
 import frc.robot.subsystems.CANDriveSubsystem;
@@ -105,6 +95,31 @@ public class RobotContainer {
         autoChooser.addOption("TurnLeft(work)", new SequentialCommandGroup(
                 AutoRIght.exampleAuto(driveSubsystem),
                 new AutoForawrd(driveSubsystem, 50)));
+
+        autoChooser.addOption("new remove(WORK)", new SequentialCommandGroup(
+                new AutoForawrd(driveSubsystem, Constants.DriveConstants.distance),
+                new ParallelCommandGroup(
+                        new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint).withTimeout(1.5).andThen(
+                                new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE).withTimeout(1.5).andThen(
+                                        AutoBack.exampleAuto(driveSubsystem).withTimeout(1.3).andThen(
+                                                AutoRIght.exampleAuto(driveSubsystem).withTimeout(1.3).andThen(
+                                                        Autofowardlittle.exampleAuto(driveSubsystem).withTimeout(1.3).andThen(
+                                                                littleleft.exampleAuto(driveSubsystem).withTimeout(1.3).andThen(
+                                                                        Autoalot.exampleAuto(driveSubsystem).withTimeout(3).andThen(
+                                                                                new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.Orginal).withTimeout(0.5).andThen(
+                                                                                        littleback.exampleAuto(driveSubsystem).withTimeout(1.5)
+                                                                                )
+                                                                        )
+                                                                )
+                                                        )
+
+                                                )
+                                        )
+                                )
+                        )
+                )
+        ));
+
         //new AutoTurn(driveSubsystem, Constants.DriveConstants.leftTurn, Constants.DriveConstants.rightTurn)));
         // new AutoForawrd(driveSubsystem, Constants.DriveConstants.distance),
         //new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint),
@@ -117,9 +132,11 @@ public class RobotContainer {
         autoChooser.addOption("FandB(IDK)", new SequentialCommandGroup(
                 new AutoForawrd(driveSubsystem, Constants.DriveConstants.distance),
                 new ParallelCommandGroup(
-                        new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE),
+                        new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.halfEncoderSetpoint).withTimeout(1.5).andThen(
+                                new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE).withTimeout(1).andThen(
                         new SequentialCommandGroup(
-                                AutoBack.exampleAuto(driveSubsystem)))));
+                                AutoBack.exampleAuto(driveSubsystem)
+                        ))))));
 
         autoChooser.addOption("AutoAlign", new SequentialCommandGroup(new AutoAlign(driveSubsystem)));
 
@@ -132,7 +149,7 @@ public class RobotContainer {
                                 new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.halfEncoderSetpoint).withTimeout(1.5).andThen(
                                         new AutoRoller(rollerSubsystem, Constants.RollerConstants.ROLLER_EJECT_VALUE).withTimeout(1.5)))));
 
-        autoChooser.addOption("AUTON_EF",
+        autoChooser.addOption("AUTON_JI WORKING",
                 new SequentialCommandGroup(
                         new AutoForawrd(driveSubsystem, Constants.DriveConstants.distance),
                         Autos.exampleAuto(driveSubsystem),
@@ -231,9 +248,9 @@ public class RobotContainer {
 
 //       driverController.x().whileTrue(new AlgaePivot(algaeIntakeSubSystem,Constants.AlgaeIntakeConstants.encoderSetpoint));
 //       driverController.rightBumper().toggleOnTrue(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.halfEncoderSetpoint));
-        operatorController.rightTrigger().toggleOnTrue(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.Orginal));
+        operatorController.rightTrigger().toggleOnTrue(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint));
         operatorController.rightBumper().toggleOnTrue(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.halfEncoderSetpoint));
-        operatorController.leftBumper().toggleOnTrue(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.encoderSetpoint));
+        operatorController.leftBumper().toggleOnTrue(new ElevatorPID(elevatorSubSystems, Constants.ElevatorConstants.Orginal));
         // operatorController.leftBumper().toggleOnTrue(new AutoRoller(rollerSubsystem, 0.15));
 
         // Set the default command for the drive subsystem to the command provided by
